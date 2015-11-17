@@ -1,0 +1,43 @@
+﻿@using System.Web.Optimization
+@using teaCRM.Common
+@using teaCRM.Entity
+@model dynamic
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section seo {
+    <title>角色管理_系统设置_C+企业云平台_打造中国办公软件第一品牌</title>   
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+}
+@section head {
+    @Styles.Render("~/Themes/default/css/cp.globle.min6.css")
+@Scripts.Render("~/Themes/default/js/cp.globle.min6.js")
+    <script src="/Themes/default/settings/js/role.js"></script>
+}
+
+<div style="margin: 0px 20px;">
+    <!--当前公司id-->
+    <input type="hidden" id="CompNum" name="CompNum" value="@Session[teaCRMKeys.SESSION_USER_COMPANY_INFO_NUM]" />
+    <table id="grid-data" class="table table-condensed table-hover table-striped table-bordered" data-selection="true" data-multi-select="true">
+        <thead>
+            <tr>
+                 <th data-column-id="RoleOrder" data-header-align="center" data-align="center"  data-order="asc">显示顺序</th>
+                <th data-column-id="RoleName" data-header-align="center" data-align="center"  data-order="desc">角色名称</th>
+                <th data-column-id="RoleType" data-header-align="center" data-align="center"  data-formatter="RoleType" data-order="desc">角色类型</th>
+                <th data-column-id="RoleDesc" data-header-align="center" data-align="center"  data-order="desc">角色描述</th>
+                <th data-column-id="RoleIssys" data-header-align="center" data-align="center"  data-formatter="RoleIsSys" data-sortable="false">是否内置</th>
+                <th data-column-id="Id" data-type="numeric" data-identifier="true" data-formatter="commands" data-sortable="false">操作</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+   
+   
+  
+
+@section script{
+    
+}

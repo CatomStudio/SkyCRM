@@ -1,0 +1,28 @@
+﻿@charset "utf-8";
+/*客户样式
+/*作者：唐有炜
+/*时间：2014年08月25日*/
+
+.layout-left{display:inline;float:left;width:189px;position:relative;z-index:102;*zoom:1;_height:705px;border-right:1px solid #d8dce5;background-color: whiteSmoke;}
+.layout-right{display:inline;float:right;width:100%;margin-left:-190px;position:relative;z-index:101;*zoom:1;_height:705px;background: #fff;}
+.layout-content{margin:0px 15px 0px 205px;position:relative;z-index:102;*zoom:1}
+
+/*此部分为左侧内容格式*/
+.l-top{line-height:26px; margin:10px;}
+.l-top .s-list{ float:right;}
+.l-top .s-list .xiala{ float:left; margin-bottom:10px;}
+.l-top .s-list .gaoji{ float:right; display:block; line-height:30px; height:30px;}
+.l-top .s-list .keyword{ display:block; float:left; margin:0;padding:0 5px; width:125px; height:30px; line-height:28px; font-size:12px; border:1px solid #dbdbdb; color:#444;}
+.l-top .s-list .btn-search{ display:block; float:left; margin:0 0 0 -1px; padding:0; width:30px; height:30px; line-height:30px; border:1px solid #dbdbdb; background:url(../images/skin_icons.png) -160px -20px no-repeat #fafafa; cursor:pointer; text-indent:-9999px; }
+
+.layout-left-filter{ }
+.layout-left-filter h2{line-height:30px;font-size:14px; width:170px; margin:10px auto; border-bottom:2px solid #666;}
+.layout-left-filter h2 a{line-height:20px; font-size:11px; margin-top:6px; float:right; margin-right:5px;}
+
+
+.toolbar .r-list{  float:left;}
+.l-top-list li{float: left;height:26px;padding: 0px 10px;border: 1px solid #E6E6E6;line-height:26px; background-color:#fff; margin-top:4px; border-left:none;}
+.l-top-list li:first-child{border: 1px solid #E6E6E6;}
+.l-top-list li a{color:#333; line-height:26px;}
+.l-top-list li strong{color:#E4393C;}
+

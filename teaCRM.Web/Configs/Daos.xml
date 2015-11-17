@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<objects xmlns="http://www.springframework.net" xmlns:db="http://www.springframework.net/database">
+  <!--sysUserDao-->
+  <object id="sysUserDao" type="teaCRM.Dao.Impl.TSysUserDaoImpl, teaCRM.Dao" singleton="false">
+  </object>
+  <!--sysCompanyDao
+  <object id="sysCompanyDao" type="teaCRM.Dao.Impl.TSysCompanyDaoImpl, teaCRM.Dao" singleton="false">
+  </object>-->
+  <!--companyUserDao-->
+  <object id="companyUserDao" type="teaCRM.Dao.Impl.VCompanyUserDaoImpl, teaCRM.Dao" singleton="false">
+  </object>
+  <!--sysLogDao-->
+  <object id="sysLogDao" type="teaCRM.Dao.Impl.TSysLogDaoImpl, teaCRM.Dao" singleton="false">
+  </object>
+
+  <!--funFilterDao-->
+  <object id="funFilterDao" type="teaCRM.Dao.Impl.TFunFilterDaoImpl, teaCRM.Dao" singleton="false">
+  </object>
+  
+
+
+  <!--settingsDao-->
+  <object id="settingsDao" type="teaCRM.Dao.Settings.Impl.ZSettingsDaoImpl, teaCRM.Dao" singleton="false">
+  </object>
+  <!--sysDepartmentDao-->
+  <object id="sysDepartmentDao" type="teaCRM.Dao.Impl.TSysDepartmentDaoImpl, teaCRM.Dao" singleton="false">
+  </object>
+  <!--sysRoleDao-->
+  <object id="sysRoleDao" type="teaCRM.Dao.Impl.TSysRoleDaoImpl, teaCRM.Dao" singleton="false">
+  </object>
+  
+  <!--funExpandDao-->
+  <object id="funExpandDao" type="teaCRM.Dao.Impl.TFunExpandDaoImpl, teaCRM.Dao" singleton="false">
+  </object>
+
+  <!--funOperatingDao-->
+  <object id="funOperatingDao" type="teaCRM.Dao.Impl.TFunOperatingDaoImpl, teaCRM.Dao" singleton="false">
+  </object>
+
+  <!--funAppDao-->
+  <object id="funAppDao" type="teaCRM.Dao.Impl.TFunAppDaoImpl, teaCRM.Dao" singleton="false">
+  </object>
+
+  <!--appCompany-->
+  <object id="appCompany" type="teaCRM.Dao.Impl.VAppCompanyDaoImpl, teaCRM.Dao" singleton="false">
+  </object>
+
+
+  <!--myAppCompany-->
+  <object id="myAppCompany" type="teaCRM.Dao.Impl.VMyappCompanyDaoImpl, teaCRM.Dao" singleton="false">
+  </object>
+  
+  <!--cusBaseDao-->
+  <object id="cusBaseDao" type="teaCRM.Dao.Impl.TCusBaseDaoImpl, teaCRM.Dao" singleton="false">
+  </object>
+  <!--cusConDao-->
+  <object id="cusConDao" type="teaCRM.Dao.Impl.TCusConDaoImpl, teaCRM.Dao" singleton="false">
+  </object>
+
+</objects>

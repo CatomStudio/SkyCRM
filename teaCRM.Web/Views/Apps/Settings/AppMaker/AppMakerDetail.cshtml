@@ -1,0 +1,198 @@
+@using System.Web.Optimization
+@using teaCRM.Common
+@using teaCRM.Entity
+@model dynamic
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section seo {
+    <title>组织架构_系统设置_C+企业云平台_打造中国办公软件第一品牌</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+}
+@section head {
+    
+    @Styles.Render("~/Themes/default/css/cp.globle.min8.css")
+    @Scripts.Render("~/Themes/default/js/cp.globle.min8.js")
+
+    <style type="text/css">
+        .layout-left {
+            display: inline;
+            float: left;
+            width: 190px;
+            position: relative;
+            z-index: 102;
+            *zoom: 1;
+            _height: 705px;
+            background-color: #ebf0f7;
+        }
+
+        .layout-right {
+            display: inline;
+            float: right;
+            width: 100%;
+            margin-left: -190px;
+            position: relative;
+            z-index: 101;
+            *zoom: 1;
+            _height: 705px;
+        }
+
+        .layout-content {
+            margin: 0px 0px 0px 190px;
+            position: relative;
+            z-index: 102;
+            *zoom: 1;
+        }
+
+
+
+        /**左侧**/
+
+        .nav-side .ns-item {
+            background: #f3f8fc;
+            border-right: 1px solid #a4b8d9;
+            *zoom: 1;
+            min-height: 900px;
+            padding: 0px 0px 10px 0px;
+        }
+
+        .ns-item .c_left {
+            width: 100%;
+            position: relative;
+            zoom: 1;
+            background: url(/Themes/default/CRM/images/c_left_btn.png) no-repeat;
+            margin-bottom: 10px;
+        }
+
+        .ns-item .c_left ul {
+            position: relative;
+            height: 38px;
+            z-index: 1;
+        }
+
+        .ns-item .c_left ul li {
+            width: 92px;
+            height: 38px;
+            font-size: 15px;
+            font-weight: 700;
+            line-height: 36px;
+            z-index: 1;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .ns-item .c_left ul li .oz0 {
+            margin-left: 30px;
+            text-shadow: white 0 1px 0;
+            color: #3C6692;
+        }
+
+        .ns-item .c_left ul li a:hover { color: #000; }
+    </style>
+    <script src="/Themes/default/settings/js/app_maker_detail.js" type="text/javascript"></script>
+  
+}
+
+<div>
+    @*布局页已经有了公司编号
+    <input type="hidden" id="CompNum" name="CompNum" value="@Session[teaCRMKeys.SESSION_USER_COMPANY_INFO_NUM]" />*@
+    <!--相应应用的id-->
+    <input type="hidden" id="AppId" name="AppId" value="@ViewBag.AppId" />
+    <!--左侧开始-->
+    <div class="layout-left">
+        <div id="nav-side" class="nav-side">
+            <div class="ns-item">
+                <div class="list-group">
+                    @* <a href="javascript:;" class="list-group-item active disabled">
+                        客户
+                    </a>
+                    <a href="#" class="list-group-item">客户模块</a>
+                    <a href="#" class="list-group-item">联系人模块</a>
+                    *@
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--左侧结束-->
+    <!-- 右侧开始 -->
+    <div class="layout-right">
+        <div class="layout-content">
+            
+            <div class="tab-content">
+
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="active"><a href="#field-info" role="tab" data-toggle="tab">自定义字段</a></li>
+                    <li><a href="#messages" role="tab" data-toggle="tab">数据视图&工具</a></li>
+                    <li><a href="#settings" role="tab" data-toggle="tab">可执行操作</a></li>
+                </ul>
+
+         
+                <div class="tab-pane active" id="field-info">
+                    <table id="field_grid" class="table table-condensed table-hover table-striped table-bordered" data-selection="true" data-multi-select="true">
+                        <thead>
+                            <tr>
+                                   <th data-column-id="exp_name"   data-header-align="center" data-align="center"   data-order="asc">字段名称</th>
+                                <th data-column-id="exp_title"   data-header-align="center" data-align="center"   data-order="asc">字段标题</th>
+                                 <th data-column-id="exp_ctype"   data-header-align="center" data-align="center"   data-order="asc">字段类型</th>
+                                 @* <th data-column-id="exp_dtype"   data-header-align="center" data-align="center"   data-order="asc">数据类型</th>
+                                <th data-column-id="exp_length"   data-header-align="center" data-align="center"   data-order="asc">数据长度</th>
+                                <th data-column-id="exp_place"   data-header-align="center" data-align="center"   data-order="asc">数据精度位数</th> 
+                                <th data-column-id="exp_option"   data-header-align="center" data-align="center"   data-order="asc">字段可选值</th>*@
+                              <th data-column-id="exp_default"   data-header-align="center" data-align="center"   data-order="asc">字段默认值</th>
+                                <th data-column-id="exp_is_null"   data-header-align="center" data-align="center"   data-order="asc">是否可为空</th> 
+                                 @*<th data-column-id="exp_is_pw"   data-header-align="center" data-align="center"   data-order="asc">是否为密码型</th> 
+                                <th data-column-id="exp_is_html"   data-header-align="center" data-align="center"   data-order="asc">是否可html语言</th> 
+                                <th data-column-id="exp_etype"   data-header-align="center" data-align="center"   data-order="asc">编辑器类型</th> 
+                                <th data-column-id="exp_tipmsg"   data-header-align="center" data-align="center"   data-order="asc">验证提示信息</th>
+                                 <th data-column-id="exp_errmsg"   data-header-align="center" data-align="center"   data-order="asc">验证失败信息</th> 
+                                <th data-column-id="exp_pattern"   data-header-align="center" data-align="center"   data-order="asc">验证正则表达式</th> *@
+                                <th data-column-id="exp_sortid"   data-header-align="center" data-align="center"   data-order="asc">排序字段</th> 
+                                @*<th data-column-id="exp_css"   data-header-align="center" data-align="center"   data-order="asc">字段调用样式</th>*@
+                                <th data-column-id="exp_is_sys"   data-header-align="center" data-align="center"  data-formatter="exp_is_sys"  data-order="asc">是否为系统内置</th>
+                                 <th data-column-id="id" data-identifier="true" data-formatter="commands" data-header-align="center" data-align="center" data-sortable="false">操作</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="tab-pane" id="messages">
+                    <table id="view_grid" class="table table-condensed table-hover table-striped table-bordered" data-selection="true" data-multi-select="true">
+                        <thead>
+                            <tr>
+                                 <th data-column-id="FilOrder"   data-header-align="center" data-align="center"   data-order="asc">排序</th>
+                                <th data-column-id="FilName"   data-header-align="center" data-align="center"   data-order="asc">筛选器名称</th>
+                                  <th data-column-id="ParentId"   data-header-align="center" data-align="center"   data-order="asc">父筛选器</th>
+                                <th data-column-id="FilWhere"   data-header-align="center" data-align="center"   data-order="asc">筛选条件</th>
+                                <th data-column-id="FilIsShow" data-formatter="FilIsShow"   data-header-align="center" data-align="center"   data-order="asc">是否显示</th>
+                                   <th data-column-id="FilIsSys"  data-formatter="FilIsSys"   data-header-align="center" data-align="center"   data-order="asc">是否内置</th>
+                                <th data-column-id="Id" data-identifier="true" data-formatter="commands" data-header-align="center" data-align="center" data-sortable="false">操作</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="tab-pane" id="settings">
+                    <table id="toolbar_grid" class="table table-condensed table-hover table-striped table-bordered" data-selection="true" data-multi-select="true">
+                        <thead>
+                            <tr>
+                                <th data-column-id="OpeAction"   data-header-align="center" data-align="center"   data-order="asc">可执行操作</th>
+                                  <th data-column-id="OpeName"   data-header-align="center" data-align="center"   data-order="asc">显示名称</th>
+                                <th data-column-id="OpeType"  data-formatter="OpeType"  data-header-align="center" data-align="center"   data-order="asc">操作类型</th>
+                                  <th data-column-id="OpeIcon"  data-formatter="OpeIcon"  data-header-align="center" data-align="center"   data-order="asc">操作图标</th>
+                                  <th data-column-id="OpeFunction"   data-header-align="center" data-align="center"   data-order="asc">操作方法</th>
+                                <th data-column-id="OpeIsSys" data-formatter="OpeIsSys"   data-header-align="center" data-align="center"   data-order="asc">是否内置</th>
+                                <th data-column-id="OpeIsStatus"  data-formatter="OpeIsStatus"    data-header-align="center" data-align="center"   data-order="asc">是否禁用</th> 
+                                 <th data-column-id="OpeIsFast" data-formatter="OpeIsFast"     data-header-align="center" data-align="center"   data-order="asc">是否快捷</th>
+                                   <th data-column-id="Id" data-identifier="true" data-formatter="commands" data-header-align="center" data-align="center" data-sortable="false">操作</th>
+
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 右侧结束 -->
+</div>
+@section script{
+    
+}

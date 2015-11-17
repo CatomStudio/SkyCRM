@@ -1,0 +1,125 @@
+﻿/*头部*/
+
+
+#header{background: #3083EB;position: relative;z-index: 3;}
+.header {height:50px;min-width:800px;}
+.header .logo {
+background: url(/Themes/default/base/images/logo.jpg) no-repeat center;
+float: left;
+height: 27px;
+margin: 11px 40px 0 20px;
+overflow: hidden;
+text-indent: 100%;
+white-space: nowrap;
+width: 140px;
+}
+
+/*导航菜单*/
+
+.head-nav {
+    display: block;
+    float: left;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.head-nav li {
+    display: block;
+    float: left;
+    margin: 0;
+    cursor: pointer;
+    height:50px;
+    vertical-align: middle;
+}
+
+.head-nav li a {
+    text-decoration: none;
+    color: #fcfcfc;
+    line-height:50px;
+    font-size: 18px;
+    display: block;
+    padding: 0px 25px;
+    cursor: pointer;
+}
+
+.head-nav li:hover { background: #6199DB; }
+
+.head-nav .selected { background: #0662d1; }
+
+/*二级导航菜单*/
+
+.head-nav2 {
+    display: block;
+    float: left;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+
+.head-nav2 .selected {
+    background: #fff;  
+}
+.head-nav2 .selected a {
+    color: #000;
+}
+
+.head-nav-header2 {
+    width: 100%;
+    height: 32px;
+    border-bottom: 1px #edeaea solid;
+    background-color: #fff;
+    line-height: 32px;
+}
+
+.head-nav-header2 li {
+    display: block;
+    float: left;
+    margin: 0 5px;
+}
+
+.head-nav-header2 li a {
+    display: block;
+    font-size: 14px;
+    color: #969393;
+    padding: 0 15px;
+    line-height:32px;
+	font-family:微软雅黑;
+}
+
+.head-nav-header2 li a:hover {
+  
+    color: #000;
+
+}
+
+/*隐藏*/
+
+.hide { display: none; }
+
+/*退出*/
+
+/*140822 By 唐有炜*/
+
+.exit {
+    float: right;
+    margin-top: 20px;
+    font-size: 13px;
+	color:#FAFF7C;
+	margin-right:20px;
+}
+
+.exit a {
+    color: white;
+    cursor: pointer;
+}
+
+.exit a:hover { color: yellowgreen; }
+
+/*气泡*/
+
+/*140822 By 唐有炜*/
+
+.tips {
+    font-family: microsoft yahei;
+    margin: 10px 10px -10px 10px;
+}

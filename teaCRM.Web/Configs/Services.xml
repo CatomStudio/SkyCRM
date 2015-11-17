@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<objects xmlns="http://www.springframework.net" xmlns:db="http://www.springframework.net/database">
+
+  <!--账户逻辑开始-->
+  <object id="accountService" type="teaCRM.Service.Impl.AccountServiceImpl, teaCRM.Service" singleton="false">
+  <property name="SysUserDao" ref="sysUserDao" />
+    <!--   <property name="SysCompanyDao" ref="sysCompanyDao" />-->
+    <property name="CompanyUserDao" ref="companyUserDao" />
+    <property name="SysLogDao" ref="sysLogDao" />
+  </object>
+  <!--账户逻辑结束-->
+
+
+  <!--筛选器-->
+  <object id="funFilterService" type="teaCRM.Service.Impl.FunFilterServiceImpl, teaCRM.Service" singleton="false">
+    <property name="FunFilterDao" ref="funFilterDao" />
+  </object>
+  <!--筛选器-->
+
+  <!--客户逻辑开始-->
+  <object id="customerService" type="teaCRM.Service.CRM.Impl.CustomerServiceImpl, teaCRM.Service" singleton="false">
+    <property name="FunExpandDao" ref="funExpandDao" />
+    <property name="CusBaseDao" ref="cusBaseDao" />
+    <property name="CusConDao" ref="cusConDao" />
+    <property name="FunFilterDao" ref="funFilterDao" />
+    <property name="FunOperatingDao" ref="funOperatingDao" />
+    
+  </object>
+  <!--客户逻辑结束-->
+
+  
+  
+  
+  <!--应用市场逻辑开始-->
+  <object id="funAppService" type="teaCRM.Service.Settings.Impl.FunAppServiceImpl, teaCRM.Service"
+          singleton="false">
+    <property name="FunAppDao" ref="funAppDao" />
+  </object>
+  <!--应用市场逻辑开始-->
+  
+  
+  <!--设置逻辑开始-->
+  <!--组织架构逻辑开始-->
+  <object id="sysDepartmentService" type="teaCRM.Service.Settings.Impl.SysDepartmentServiceImpl, teaCRM.Service"
+          singleton="false">
+    <property name="SysDepartmentDao" ref="sysDepartmentDao" />
+  </object>
+  <!--组织架构逻辑结束-->
+  <!--角色逻辑开始-->
+  <object id="sysRoleService" type="teaCRM.Service.Settings.Impl.SysRoleServiceImpl, teaCRM.Service"
+          singleton="false">
+    <property name="SysRoleDao" ref="sysRoleDao" />
+    <property name="AppCompany" ref="appCompany" />
+    <property name="MyAppCompany" ref="myAppCompany" />
+    <property name="FunOperatingDao" ref="funOperatingDao" />
+  </object>
+  <!--角色逻辑结束-->
+  <!--用户逻辑开始-->
+  <object id="sysUserService" type="teaCRM.Service.Settings.Impl.SysUserServiceImpl, teaCRM.Service"
+          singleton="false">
+    <property name="SysUserDao" ref="sysUserDao" />
+  </object>
+  <!--用户逻辑结束-->
+  <!--应用定制逻辑开始-->
+  <object id="appMakerService" type="teaCRM.Service.Settings.Impl.AppMakerServiceImpl, teaCRM.Service"
+          singleton="false">
+    <property name="AppCompany" ref="appCompany" />
+    <property name="MyAppCompany" ref="myAppCompany" />
+    <property name="FunExpandDao" ref="funExpandDao" />
+    <property name="FunFilterDao" ref="funFilterDao" />
+    <property name="FunOperatingDao" ref="funOperatingDao" />
+  </object>
+  <!--应用定制逻辑结束-->
+  <!--设置逻辑结束-->
+
+</objects>

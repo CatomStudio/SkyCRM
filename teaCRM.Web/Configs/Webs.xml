@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<objects xmlns="http://www.springframework.net" xmlns:db="http://www.springframework.net/database">
+  <!---账户登录控制器开始-->
+  <object id="accountController" type="teaCRM.Web.Controllers.AccountController, teaCRM.Web" singleton="false">
+    <!---name是当前属性明显，ref是关键的object的id名称-->
+    <property name="AccountService" ref="accountService" />
+  </object>
+  <!---账户登录控制器结束-->
+
+  <!---工作台控制器开始-->
+  <object id="desktopController" type="teaCRM.Web.Controllers.DesktopController, teaCRM.Web" singleton="false" />
+  <!---工作台控制器结束-->
+
+  <!---应用市场控制器开始-->
+  <object id="appsIndexController" type="teaCRM.Web.Controllers.Apps.MarketController, teaCRM.Web" singleton="false" />
+  <!---应用市场控制器结束-->
+
+  <!--CRM模块控制器开始-->
+  <object id="crmCustomerController" type="teaCRM.Web.Controllers.Apps.CRM.CustomerController, teaCRM.Web" singleton="false">
+    <property name="AccountService" ref="accountService" />
+    <property name="AppMakerService" ref="appMakerService" />
+    <property name="CustomerService" ref="customerService" />
+  </object>
+  <object id="crmContactController" type="teaCRM.Web.Controllers.Apps.CRM.ContactController, teaCRM.Web" singleton="false">
+    <property name="AccountService" ref="accountService" />
+    <property name="CustomerService" ref="customerService" />
+  </object>
+  <object id="crmTrashController" type="teaCRM.Web.Controllers.Apps.CRM.TrashController, teaCRM.Web" singleton="false">
+    <property name="AccountService" ref="accountService" />
+    <property name="CustomerService" ref="customerService" />
+  </object>
+  <object id="crmPubController" type="teaCRM.Web.Controllers.Apps.CRM.PubController, teaCRM.Web" singleton="false">
+    <property name="AccountService" ref="accountService" />
+    <property name="CustomerService" ref="customerService" />
+  </object>
+  <!--<object id="loadDataController" type="teaCRM.Web.Controllers.Apps.CRM.LoadDataController, teaCRM.Web"
+          singleton="false">
+    <property name="AccountService" ref="accountService" />
+    
+    <property name="CustomerService" ref="customerService" />
+  </object>-->
+  <!--CRM模块控制器结束-->
+
+  <!--产品模块控制器开始-->
+  <object id="productIndexController" type="teaCRM.Web.Controllers.Apps.Product.IndexController, teaCRM.Web"
+          singleton="false" />
+  <!--产品模块控制器结束-->
+
+  <!--销售模块控制器开始-->
+  <object id="saleIndexController" type="teaCRM.Web.Controllers.Apps.Sale.IndexController, teaCRM.Web"
+          singleton="false" />
+  <!--销售模块控制器结束-->
+
+  <!--服务模块控制器开始-->
+  <object id="serviceIndexController" type="teaCRM.Web.Controllers.Apps.Service.IndexController, teaCRM.Web"
+          singleton="false" />
+  <!--服务模块控制器结束-->
+
+
+  <!--设置模块控制器开始-->
+  <object id="departmentController" type="teaCRM.Web.Controllers.Apps.Settings.DepartmentController, teaCRM.Web"
+          singleton="false">
+    <property name="SysDepartmentService" ref="sysDepartmentService" />
+  </object>
+  <object id="roleController" type="teaCRM.Web.Controllers.Apps.Settings.RoleController, teaCRM.Web" singleton="false" >
+    <property name="RoleService" ref="sysRoleService" />
+  </object>
+  <object id="usersController" type="teaCRM.Web.Controllers.Apps.Settings.UsersController, teaCRM.Web"
+          singleton="false" >
+    <property name="UserService" ref="sysUserService" />
+  </object>
+  <object id="permissionController" type="teaCRM.Web.Controllers.Apps.Settings.PermissionController, teaCRM.Web"
+          singleton="false" >
+    <property name="RoleService" ref="sysRoleService" />
+  </object>
+  <object id="appMakerController" type="teaCRM.Web.Controllers.Apps.Settings.AppMakerController, teaCRM.Web"
+          singleton="false" >
+  </object>
+  <!--设置模块控制器结束-->
+</objects>

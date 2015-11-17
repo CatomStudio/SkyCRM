@@ -1,0 +1,24 @@
+﻿@using System.Web.Optimization
+@model dynamic
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Msg"] = "销售模块正在开发中";
+}
+
+@section seo {
+    <title>销售_C+企业云平台_打造中国办公软件第一品牌</title>
+
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    @Styles.Render("~/Themes/default/css/cp.globle.min5.css")
+    @Scripts.Render("~/Themes/default/js/cp.globle.min5.js")
+}
+@section head {}
+
+
+@Html.Partial("_Error",this.ViewData)
+
+@section script
+{
+
+}

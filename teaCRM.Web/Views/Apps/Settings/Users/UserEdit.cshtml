@@ -1,0 +1,255 @@
+﻿@using System.Web.Optimization
+@using teaCRM.Entity
+@model dynamic
+
+@{
+    Layout = null;
+}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    @Styles.Render("~/Themes/default/css/cp.globle.min1.css")
+    @Scripts.Render("~/Themes/default/js/cp.globle.min1.js")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //清空
+            $("#Usertname").val();
+            $("#UserLname").focus();
+            var id = "@ViewBag.Id";
+            if (id != "") {
+                ////console.log("开始修改");
+                load_form_data(id);
+            }
+        });
+        $(function() {
+            validate_form();
+        });
+
+
+
+
+        function load_form_data(id) {
+                            //alert(id);
+                            //提交数据
+            var url = "/api/settings/users/getUser/" + id;
+            $.ajax({
+                type: "get",
+                cache: false,
+                url: url,
+                data: { id: id },
+                dataType: "json",
+                beforeSend: function () {
+                    //showLoading();
+                },
+                complete: function () {
+                    //hideLoading();
+                },
+                success: function (result) {
+                    ////console.log(result);
+                    for (var key in result) {
+                        //alert(key + " " + result[key]);
+                        if ($("#" + key) != undefined) {
+                            $("#" + key).val(result[key]);
+                            //处理Checkbox
+                            //$("#" + key).next().val(result[key]);
+                        }
+                    }
+                    ////console.log("数据加载成功。");
+                },
+                error: function () {
+                    ////console.log("数据加载失败。");
+                    showMsg("服务器异常！");
+                }
+            });
+        }
+
+
+
+        //表单验证
+        function validate_form() {
+            $("#form_user").validate({
+                rules: {
+                    UserLname: {
+                        rangelength: [2, 30],
+                        remote: { url: "/api/settings/users/existsUser/", data: { compNum: function() { return $("#CompNum").val(); } } }
+                    }
+                },
+                messages: {
+                    UserLname: {
+                        remote: "对不起,该用户名已存在！"
+                    }
+                },
+                invalidHandler: function(e, validator) {
+                    var msg = "有 " + validator.numberOfInvalids() + " 项填写有误，请检查！";
+                    $("#msgprint").html(msg).show().focus();
+                    setTimeout(function() {
+                        $("#msgprint").fadeOut(500);
+                        //如果动画结束则删除节点
+                        if (!$("#msgprint").is(":animated")) {
+                            $("#msgprint").hide();
+                        }
+                    }, 1000);
+                },
+                focusInvalid: false,
+                errorPlacement: function(error, element) {
+                    var errorMsg = error[0].innerHTML;
+                    var elementName = element[0].name;
+                    if ($.trim($("#UserLName").val()) != "") {
+                        $("#" + elementName).formtip(errorMsg);
+                        $("#" + elementName).attr("placeholder", errorMsg);
+                    }
+
+                },
+                success: function(element) {
+                    var elem = $(element)[0].htmlFor;
+                    $("#" + elem).poshytip('disable');
+                    $("#" + elem).poshytip('destroy');
+                    $("#" + elem).removeClass("error").addClass("success");
+                }
+
+            });
+        }
+
+
+        //表单验证方法，供父窗口调用
+        function form_valid() {
+            return $("#form_user").valid();
+        }
+    </script>
+</head>
+<body>
+    <div class="tab-content">
+        <!--表单错误提示区-->
+        <div tabindex="-1" id="msgprint" class="warning" style="z-index: 2;position: fixed; width: 90%; display: none;">您的表单包含错误，请检查！</div>
+        <form id="form_user">
+            <input type="hidden" id="Id" name="Id" value="@ViewBag.Id"/>
+            <!--当前公司id-->
+            <input type="hidden" id="CompNum" name="CompNum" value="@Session[teaCRMKeys.SESSION_USER_COMPANY_INFO_NUM]" />
+            <dl>
+                <dt>
+                    <em class="imp">*</em>用户名称：
+                </dt>
+                <dd>
+                    <div class="input-group wid515">
+                        <input type="text" class=" form-control  required"  id="UserLname" name="UserLname" placeholder="输入用户名称" >
+                        <span class="input-group-addon">@@@Session[teaCRMKeys.SESSION_USER_COMPANY_INFO_NUM]</span>
+                    </div>
+                </dd>
+               
+            </dl>
+            <dl>
+                 <dt>
+                    显示名称：
+                </dt>
+                <dd>
+                    <input type="text" class="form-control" id="UserTname" name="UserTname" />
+                </dd>
+            </dl>
+            <dl>
+                <dt>
+                    <em class="imp">*</em>密码：
+                </dt>
+                <dd>
+                    <input type="password" class="form-control required" id="UserPassword" name="UserPassword" placeholder="输入密码" />
+                </dd>
+                <dt>
+                    <em class="imp">*</em>重复密码：
+                </dt>
+                <dd>
+                    <input type="password" class="form-control" id="rePassword" name="rePassword" placeholder="再一次输入密码" />
+                </dd>
+               
+            </dl>
+            <dl>
+                <dt>
+                    <em class="imp">*</em>    角色：
+                </dt>
+                <dd>
+                    <input type="text" class="form-control required" id="RoleId" name="RoleId"  readonly="true" value="1" placeholder="点击选择角色"/>
+                </dd>
+                <dt>
+                    <em class="imp">*</em>    部门：
+                </dt>
+                <dd>
+                    <input type="text" class="form-control required" id="DepId" name="DepId"  readonly="true" value="1" placeholder="点击选择部门"/>
+                </dd>
+            </dl>
+            <dl>
+              
+                <dt>
+                    <em class="imp">*</em>  可查看范围：
+                </dt>
+                <dd>
+                    <input type="radio"  id="UserPosition0" name="UserPosition" value="0"/>仅自己
+                    <input type="radio" id="UserPosition1" name="UserPosition" value="1"/>自己及所在部门
+                    <input type="radio" id="UserPosition2" name="UserPosition" value="2"/>自己及指定部门
+                    <input type="radio" id="UserPosition3" name="UserPosition" value="3"/>自己及指定用户
+                    <input type="radio" id="UserPosition4" name="UserPosition" value="4"/>全部
+                </dd>
+            </dl>
+            <dl>
+                <dt>
+                    性别：
+                </dt>
+                <dd>
+                    <input type="radio"  id="UserSex0" name="UserSex"  />男
+                    <input type="radio"  id="UserSex1" name="UserSex"  />女
+                </dd>
+                <dt style="margin-left: 100px;">
+                    手机：
+                </dt>
+                <dd>
+                    <input type="text" class="form-control" id="UserPhone" name="UserPhone" />
+                </dd>
+            </dl>
+            <dl>
+                <dt>
+                    邮箱：
+                </dt>
+                <dd>
+                    <input type="text" class="form-control" id="UserEmail" name="UserEmail"  />
+                </dd>
+                <dt>
+                    QQ：
+                </dt>
+                <dd>
+                    <input type="text" class="form-control" id="UserQq" name="UserQq"  />
+                </dd>
+            </dl>
+            <dl>
+                <dt>
+                    职位：
+                </dt>
+                <dd>
+                    <input type="text" class="form-control" id="UserPosition" name="UserPosition" />
+                </dd>     <dt>
+                              职位状态：
+                          </dt>
+                <dd>
+                    <input type="text" class="form-control" id="UserJobstatus" name="UserJobstatus"  />
+                </dd>
+              
+            </dl>
+        
+           
+    
+            <dl>
+                <dt>
+                    电话：
+                </dt>
+                <dd>
+                    <input type="text" class="form-control" id="UserTel" name="UserTel" />
+                </dd>
+                <dt>
+                    是否启用：
+                </dt>
+                <dd>
+                    <input type="radio" id="UserEnable0" name="UserEnable" checked/>是
+                    <input type="radio" id="UserEnable1" name="UserEnable" />否
+                </dd>
+            </dl>
+        </form>
+    </div>
+</body>
+</html>

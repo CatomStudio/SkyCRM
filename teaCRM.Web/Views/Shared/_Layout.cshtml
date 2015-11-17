@@ -1,0 +1,102 @@
+﻿@using System.Web.Optimization
+@using teaCRM.Common
+@using teaCRM.Entity
+@using teaCRM.Web.Helpers
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+<!--[if lt IE 8]> <script type="text/javascript"> window.location.href = "/ie6update.html";</script> <![endif]-->
+        <!--seo开始-->
+        @RenderSection("seo")
+        <!--seo结束-->
+
+        <!--页面头部开始-->
+        @RenderSection("head")
+        <!--页面头部结束-->
+    </head>
+    <body>
+        <!--当前公司id-->
+        <input type="hidden" id="CompNum" name="CompNum" value="@Session[teaCRMKeys.SESSION_USER_COMPANY_INFO_NUM]" />
+        <!--公共头部开始-->
+        <div id="header">
+            <div class="header">
+                <a id="logo" class="logo" href="/" title="C+ CRM"></a>
+                <ul class="head-nav" id="head-nav">
+                    <li id="head-nav-Desktop" class="selected" ><a href="/Desktop/">桌面</a></li>
+                    @*<li id="head-nav-customer"><a href="/Apps/CRM/">客户</a></li>*@ 
+                    <li id="head-nav-Index"><a href="/Apps/Index/">应用</a></li>
+                    <li id="head-nav-Settings"><a href="/Apps/Settings/Department/">设置</a></li>
+                    <li id="head-nav-More"><a href="javascript:void(0);">更多</a></li>
+                </ul>
+                <!--更多开始-->
+                <div id="more-content" class="hide">
+                    <ul class="head-nav" id="head-more-nav" style="background: #1173ee; margin: 10px 10px -10px 10px;">
+                        @*<li id="head-nav-sale"><a href="/Apps/Sale/">销售</a></li><li id="head-nav-product"><a href="/Apps/Product/">产品</a></li><li id="head-nav-service"><a href="/Apps/Service/">服务</a></li>*@
+                    </ul>
+                </div>
+                <!--更多结束-->
+                <!--欢迎开始-->
+                <div class="exit"><span id="sayHello">欢迎您，</span>@Html.LoadDefaultValue(Html.GetCurrentCompanyUser(int.Parse(Session[teaCRMKeys.SESSION_USER_COMPANY_INFO_ID].ToString())).UserTname, Html.GetCurrentCompanyUser(int.Parse(Session[teaCRMKeys.SESSION_USER_COMPANY_INFO_ID].ToString())).UserLname) &nbsp;&nbsp;&nbsp;<a href="/Account/Logout/">安全退出</a></div>
+                <!--欢迎结束-->
+            </div>
+            
+            <!--二级菜单开始-->
+            <div id="main-menu">
+ 
+                <!--应用市场菜单-->
+                <div id="sub-nav-Index" class="head-nav-header2 hide">
+                    <ul class="head-head-nav2">
+                        <li class="selected"><a href="/Apps/Market/">应用首页</a></li>
+                        <li><a href="" >免费版</a></li>
+                        <li><a href="">收费版</a></li>
+                    </ul>
+                </div>
+
+                <!--设置菜单-->
+                <div id="sub-nav-Settings" class="head-nav-header2 hide">
+                    <ul class="head-head-nav2">
+                        <li class="selected"><a href="/Apps/Settings/Department/" >组织架构</a></li>
+                        <li><a href="/Apps/Settings/Role/">角色管理</a></li>
+                        <li><a href="/Apps/Settings/Users/">用户管理</a></li>
+                        <li><a href="/Apps/Settings/AppMaker/">应用定制</a></li>
+                     
+                    </ul>
+                </div>
+                
+                
+                
+                
+                
+                @*
+                <!--客户模块菜单-->
+                <div id="menu-customer" class="head-nav-header2 hide">
+                    <ul class="head-head-nav2">
+                        <li id="all" class="selected"><a href="/Apps/CRM/Index/">全部客户</a></li>
+                        <li id="contact"><a href="/Apps/CRM/Contact/">我的人脉</a></li>
+                    </ul>
+                </div>
+ *@
+
+                
+
+            </div>
+            <!--二级菜单结束-->
+        </div>
+        <!--公共头部结束-->
+
+        <!--内容区域开始-->
+        @RenderBody()
+        <!--内容区域结束-->
+        
+        <!--公共底部开始-->
+        <!--  <div id="footer">
+                  <div class="copyright"> copyright © 2014-2024 teaCRM.net All Rights Reserved.</div>
+              </div>-->
+        <!--公共底部结束-->
+      
+        <!--js开始-->
+        <script src="/Themes/default/base/js/layout.js" type="text/javascript"></script>
+        @RenderSection("script")
+        <!--js结束-->
+    </body>
+</html>

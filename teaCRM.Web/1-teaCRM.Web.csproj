@@ -1,0 +1,528 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{20C4980B-EE81-4C68-AA86-A5B7BCE3166B}</ProjectGuid>
+    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>teaCRM.Web</RootNamespace>
+    <AssemblyName>teaCRM.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>App_Data\teaCRM.Web.Api.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime">
+      <HintPath>..\packages\WebGrease.1.3.0\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging, Version=2.1.2.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Common.Logging.2.1.2\lib\net40\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="ELinq, Version=0.6.1.0, Culture=neutral, PublicKeyToken=de4bad8fb4637582, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\ELinq.0.6.1\lib\net40\ELinq.dll</HintPath>
+    </Reference>
+    <Reference Include="Glimpse.AspNet">
+      <HintPath>..\packages\Glimpse.AspNet.1.9.1\lib\net40\Glimpse.AspNet.dll</HintPath>
+    </Reference>
+    <Reference Include="Glimpse.Core">
+      <HintPath>..\packages\Glimpse.1.8.6\lib\net40\Glimpse.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Glimpse.Mvc4">
+      <HintPath>..\packages\Glimpse.Mvc4.1.5.3\lib\net40\Glimpse.Mvc4.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Spring.Core, Version=2.0.0.40000, Culture=neutral, PublicKeyToken=65e474d141e25e07, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Spring.Core.2.0.0-RC1\lib\net40\Spring.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Web, Version=2.0.0.40000, Culture=neutral, PublicKeyToken=65e474d141e25e07, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Spring.Web.2.0.0-RC1\lib\net40\Spring.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Web.Mvc4, Version=2.0.0.40000, Culture=neutral, PublicKeyToken=65e474d141e25e07, processorArchitecture=MSIL">
+      <HintPath>..\packages\Spring.Web.Mvc4.2.0.0-RC1\lib\net40\Spring.Web.Mvc4.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.20710.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.0\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.4.5.6\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Net.Http.2.0.20710.0\lib\net40\System.Net.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.4.0.20710.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Net.Http.2.0.20710.0\lib\net40\System.Net.Http.WebRequest.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.4.0.20710.0\lib\net40\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.20710.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <HintPath>..\packages\WebGrease.1.3.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\AuthConfig.cs" />
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
+    <Compile Include="Areas\HelpPage\App_Start\HelpPageConfig.cs" />
+    <Compile Include="Areas\HelpPage\Controllers\HelpController.cs" />
+    <Compile Include="Areas\HelpPage\HelpPageAreaRegistration.cs" />
+    <Compile Include="Areas\HelpPage\HelpPageConfigurationExtensions.cs" />
+    <Compile Include="Areas\HelpPage\Models\HelpPageApiModel.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\HelpPageSampleGenerator.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\HelpPageSampleKey.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\ImageSample.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\InvalidSample.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\ObjectGenerator.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
+    <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\Admin\AppController.cs" />
+    <Compile Include="Controllers\Admin\AccountController.cs" />
+    <Compile Include="Controllers\Admin\MainController.cs" />
+    <Compile Include="Controllers\Api\AppController.cs" />
+    <Compile Include="Controllers\Api\CRM\ContactController.cs" />
+    <Compile Include="Controllers\Api\CRM\CustomerController.cs" />
+    <Compile Include="Controllers\Api\Settings\AppMakerController.cs" />
+    <Compile Include="Controllers\Api\Settings\RoleController.cs" />
+    <Compile Include="Controllers\Api\Settings\UsersController.cs" />
+    <Compile Include="Controllers\Apps\CRM\ContactController.cs" />
+    <Compile Include="Controllers\Apps\CRM\PubController.cs" />
+    <Compile Include="Controllers\Apps\CRM\TrashController.cs" />
+    <Compile Include="Controllers\Apps\Settings\AppMakerController.cs" />
+    <Compile Include="Controllers\Apps\Settings\PermissionController.cs" />
+    <Compile Include="Controllers\Admin\LogController.cs" />
+    <Compile Include="Controllers\Base\AccountController.cs" />
+    <Compile Include="Controllers\Apps\CRM\CustomerController.cs" />
+    <Compile Include="Controllers\Apps\MarketController.cs" />
+    <Compile Include="Controllers\Apps\Product\IndexController.cs" />
+    <Compile Include="Controllers\Apps\Sale\IndexController.cs" />
+    <Compile Include="Controllers\Apps\Service\IndexController.cs" />
+    <Compile Include="Controllers\Apps\Settings\DepartmentController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\Apps\Settings\RoleController.cs" />
+    <Compile Include="Controllers\Apps\Settings\UsersController.cs" />
+    <Compile Include="Controllers\Base\DesktopController.cs" />
+    <Compile Include="Filters\ApiAuthorizeAttribute.cs" />
+    <Compile Include="Filters\AutoLoginAttribute.cs" />
+    <Compile Include="Filters\UserAuthorizeAttribute.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\MyConfigHelper.cs" />
+    <Compile Include="Helpers\MyHtmlHelper.cs" />
+    <Compile Include="Helpers\MyViewEngine.cs" />
+    <Compile Include="Helpers\MyWebApiController.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="Areas\HelpPage\HelpPage.css" />
+    <Content Include="Configs\Daos.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="ie6update.html" />
+    <Content Include="Themes\default\base\css\account.css" />
+    <Content Include="Themes\default\base\css\login.css" />
+    <Content Include="Themes\default\base\css\login.mobile.css" />
+    <Content Include="Themes\default\base\css\public_register.css" />
+    <Content Include="Themes\default\base\css\public_register.mobile.css" />
+    <Content Include="Themes\default\base\images\btn_bg.gif" />
+    <Content Include="Themes\default\base\images\ie_update.jpg" />
+    <Content Include="Themes\default\base\images\msg_icon.gif" />
+    <Content Include="Themes\default\base\images\develop.png" />
+    <Content Include="Themes\default\base\images\tools_bg.gif" />
+    <Content Include="Themes\default\base\js\app.js" />
+    <Content Include="Themes\default\base\js\category.js" />
+    <Content Include="Themes\default\base\js\city.js" />
+    <Content Include="Themes\default\base\js\industry.js" />
+    <Content Include="Themes\default\crm\js\contact.js" />
+    <Content Include="Themes\default\crm\js\customer_show.js" />
+    <Content Include="Themes\default\crm\js\trash.js" />
+    <Content Include="Themes\default\lib\artDialog\lib\require.js" />
+    <Content Include="Themes\default\lib\artDialog\lib\sea.js" />
+    <Content Include="Themes\default\lib\bootstrap\css\bootstrap-3.2.0.css" />
+    <Content Include="Themes\default\lib\bootstrap\css\bootstrap-3.2.0.min.css" />
+    <Content Include="Themes\default\lib\bootstrap\js\bootstrap-3.2.0.min.js" />
+    <Content Include="Themes\default\lib\bootstrap\js\bootstrap-3.2.0.js" />
+    <Content Include="Themes\default\lib\bt-validate\bt-validate.js" />
+    <Content Include="Themes\default\lib\jquery.bootgrid\jquery.bootgrid.css" />
+    <Content Include="Themes\default\lib\jquery.bootgrid\jquery.bootgrid.js" />
+    <Content Include="Themes\default\lib\jquery.bootgrid\jquery.bootgrid.min.js" />
+    <Content Include="Themes\default\lib\jquery\jquery-1.11.1.js" />
+    <Content Include="Themes\default\lib\jquery\jquery-1.11.1.min.js" />
+    <Content Include="Themes\default\lib\my97DatePicker\calendar.js" />
+    <Content Include="Themes\default\lib\my97DatePicker\lang\en.js" />
+    <Content Include="Themes\default\lib\my97DatePicker\lang\zh-cn.js" />
+    <Content Include="Themes\default\lib\my97DatePicker\lang\zh-tw.js" />
+    <Content Include="Themes\default\lib\my97DatePicker\skin\datePicker.gif" />
+    <Content Include="Themes\default\lib\my97DatePicker\skin\default\datepicker.css" />
+    <Content Include="Themes\default\lib\my97DatePicker\skin\default\img.gif" />
+    <Content Include="Themes\default\lib\my97DatePicker\skin\WdatePicker.css" />
+    <Content Include="Themes\default\lib\my97DatePicker\skin\whyGreen\bg.jpg" />
+    <Content Include="Themes\default\lib\my97DatePicker\skin\whyGreen\datepicker.css" />
+    <Content Include="Themes\default\lib\my97DatePicker\skin\whyGreen\img.gif" />
+    <Content Include="Themes\default\lib\my97DatePicker\WdatePicker.js" />
+    <Content Include="Themes\default\lib\moderniz\moderniz.2.8.1.js" />
+    <Content Include="Themes\default\lib\pie\PIE.htc" />
+    <Content Include="Themes\default\lib\pie\PIE.js" />
+    <Content Include="Themes\default\lib\poshytip\jquery.poshytip.js" />
+    <Content Include="Themes\default\lib\poshytip\jquery.poshytip.min.js" />
+    <Content Include="Themes\default\lib\poshytip\tip-darkgray\tip-darkgray.css" />
+    <Content Include="Themes\default\lib\poshytip\tip-darkgray\tip-darkgray.png" />
+    <Content Include="Themes\default\lib\poshytip\tip-darkgray\tip-darkgray_arrows.png" />
+    <Content Include="Themes\default\lib\poshytip\tip-green\tip-green.css" />
+    <Content Include="Themes\default\lib\poshytip\tip-green\tip-green_arrows.gif" />
+    <Content Include="Themes\default\lib\poshytip\tip-skyblue\tip-skyblue.css" />
+    <Content Include="Themes\default\lib\poshytip\tip-skyblue\tip-skyblue.png" />
+    <Content Include="Themes\default\lib\poshytip\tip-skyblue\tip-skyblue_arrows.png" />
+    <Content Include="Themes\default\lib\poshytip\tip-twitter\tip-twitter.css" />
+    <Content Include="Themes\default\lib\poshytip\tip-twitter\tip-twitter_arrows.gif" />
+    <Content Include="Themes\default\lib\poshytip\tip-violet\tip-violet.css" />
+    <Content Include="Themes\default\lib\poshytip\tip-violet\tip-violet.png" />
+    <Content Include="Themes\default\lib\poshytip\tip-violet\tip-violet_arrows.png" />
+    <Content Include="Themes\default\lib\poshytip\tip-yellowsimple\tip-yellowsimple.css" />
+    <Content Include="Themes\default\lib\poshytip\tip-yellowsimple\tip-yellowsimple_arrows.gif" />
+    <Content Include="Themes\default\lib\poshytip\tip-yellow\tip-yellow.css" />
+    <Content Include="Themes\default\lib\poshytip\tip-yellow\tip-yellow.png" />
+    <Content Include="Themes\default\lib\poshytip\tip-yellow\tip-yellow_arrows.png" />
+    <Content Include="Themes\default\lib\validate\jquery.validate.extend.js" />
+    <Content Include="Themes\default\lib\validate\jquery.validate.js" />
+    <Content Include="Themes\default\lib\validate\jquery.validate.min.js" />
+    <Content Include="Themes\default\lib\zTree\css\zTreeStyle\img\diy\1_close.png" />
+    <Content Include="Themes\default\lib\zTree\css\zTreeStyle\img\diy\1_open.png" />
+    <Content Include="Themes\default\lib\zTree\css\zTreeStyle\img\diy\2.png" />
+    <Content Include="Themes\default\lib\zTree\css\zTreeStyle\img\diy\3.png" />
+    <Content Include="Themes\default\lib\zTree\css\zTreeStyle\img\diy\4.png" />
+    <Content Include="Themes\default\lib\zTree\css\zTreeStyle\img\diy\5.png" />
+    <Content Include="Themes\default\lib\zTree\css\zTreeStyle\img\diy\6.png" />
+    <Content Include="Themes\default\lib\zTree\css\zTreeStyle\img\diy\7.png" />
+    <Content Include="Themes\default\lib\zTree\css\zTreeStyle\img\diy\8.png" />
+    <Content Include="Themes\default\lib\zTree\css\zTreeStyle\img\diy\9.png" />
+    <Content Include="Themes\default\lib\zTree\css\zTreeStyle\img\line_conn.gif" />
+    <Content Include="Themes\default\lib\zTree\css\zTreeStyle\img\loading.gif" />
+    <Content Include="Themes\default\lib\zTree\css\zTreeStyle\img\zTreeStandard.gif" />
+    <Content Include="Themes\default\lib\zTree\css\zTreeStyle\img\zTreeStandard.png" />
+    <Content Include="Themes\default\lib\zTree\css\zTreeStyle\zTreeStyle.css" />
+    <Content Include="Themes\default\lib\zTree\js\jquery.ztree.all-3.5.js" />
+    <Content Include="Themes\default\lib\zTree\js\jquery.ztree.all-3.5.min.js" />
+    <Content Include="Themes\default\lib\zTree\js\jquery.ztree.core-3.5.js" />
+    <Content Include="Themes\default\lib\zTree\js\jquery.ztree.core-3.5.min.js" />
+    <Content Include="Themes\default\lib\zTree\js\jquery.ztree.excheck-3.5.js" />
+    <Content Include="Themes\default\lib\zTree\js\jquery.ztree.excheck-3.5.min.js" />
+    <Content Include="Themes\default\lib\zTree\js\jquery.ztree.exedit-3.5.js" />
+    <Content Include="Themes\default\lib\zTree\js\jquery.ztree.exedit-3.5.min.js" />
+    <Content Include="Themes\default\lib\zTree\js\jquery.ztree.exedit.js" />
+    <Content Include="Themes\default\settings\js\app_maker.js" />
+    <Content Include="Themes\default\settings\js\app_maker_detail.js" />
+    <Content Include="Themes\default\settings\js\role.js" />
+    <Content Include="Themes\default\settings\js\user.js" />
+    <Content Include="Views\Admin\Log\LogView.cshtml" />
+    <Resource Include="Configs\Services.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Content Include="Configs\Objects.xml" />
+    <Content Include="Configs\Webs.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Global.asax" />
+    <Content Include="Themes\default\crm\css\crm.list.css" />
+    <Content Include="Themes\default\crm\css\crm.layout.css" />
+    <Content Include="Themes\default\crm\images\c_baidu.jpg" />
+    <Content Include="Themes\default\crm\images\c_google.jpg" />
+    <Content Include="Themes\default\crm\images\c_left_btn.png" />
+    <Content Include="Themes\default\crm\images\filter-bar-btn-hidden1.gif" />
+    <Content Include="Themes\default\crm\images\icon-light.gif" />
+    <Content Include="Themes\default\crm\images\skin_icons.png" />
+    <Content Include="Themes\default\crm\images\view_btn.png" />
+    <Content Include="Themes\default\crm\js\customer_edit.js" />
+    <Content Include="Themes\default\crm\js\customer_index.js" />
+    <Content Include="Themes\default\base\css\foot.css" />
+    <Content Include="Themes\default\base\css\globle.css" />
+    <Content Include="Themes\default\base\css\head.css" />
+    <Content Include="Themes\default\settings\css\department.css" />
+    <Content Include="Themes\default\base\images\all2.jpg" />
+    <Content Include="Themes\default\base\images\arr.png" />
+    <Content Include="Themes\default\base\images\bgx.png" />
+    <Content Include="Themes\default\base\images\bg_v2.png" />
+    <Content Include="Themes\default\base\images\header.jpg" />
+    <Content Include="Themes\default\base\images\link.png" />
+    <Content Include="Themes\default\base\images\logo.jpg" />
+    <Content Include="Themes\default\base\images\logo_ie6_v2.png" />
+    <Content Include="Themes\default\base\images\logo_v2.png" />
+    <Content Include="Themes\default\base\images\long_logo.png" />
+    <Content Include="Themes\default\base\images\ntes_logo.jpg" />
+    <Content Include="Themes\default\base\images\ntes_logo.png" />
+    <Content Include="Themes\default\base\images\ntes_logo_ie6.png" />
+    <Content Include="Themes\default\base\images\shadow_x.png" />
+    <Content Include="Themes\default\base\images\shadow_y.png" />
+    <Content Include="Themes\default\base\images\skin_icons.png" />
+    <Content Include="Themes\default\base\images\sprites-button.png" />
+    <Content Include="Themes\default\base\images\sprites-button_save.png" />
+    <Content Include="Themes\default\base\images\t.gif" />
+    <Content Include="Themes\default\base\images\tip-yellow.gif" />
+    <Content Include="Themes\default\base\images\tip-yellowsimple.png" />
+    <Content Include="Themes\default\base\images\tip-yellowsimple_arrows.png" />
+    <Content Include="Themes\default\base\images\weixin_qrcode.png" />
+    <Content Include="Themes\default\base\js\account\login.js" />
+    <Content Include="Themes\default\base\js\account\puclic_register.js" />
+    <Content Include="Themes\default\lib\artDialog\css\ui-dialog.css" />
+    <Content Include="Themes\default\lib\artDialog\dist\dialog-min.js" />
+    <Content Include="Themes\default\lib\artDialog\dist\dialog-plus-min.js" />
+    <Content Include="Themes\default\lib\artDialog\dist\dialog-plus.js" />
+    <Content Include="Themes\default\lib\artDialog\dist\dialog.js" />
+    <Content Include="Themes\default\lib\autoComplete\jquery.autocomplete.js" />
+    <Content Include="Themes\default\base\js\global.js" />
+    <Content Include="Themes\default\lib\cookie\jquery.cookie.js" />
+    <Content Include="Themes\default\lib\function.js" />
+    <Content Include="Themes\default\lib\json\json2.js" />
+    <Content Include="Themes\default\settings\js\department.js" />
+    <Content Include="Themes\default\base\js\layout.js" />
+    <Content Include="Themes\default\lib\validate\messages_cn.js" />
+    <Content Include="Views\Apps\CRM\Customer\CustomerIndex.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Controllers\Api\Base\" />
+    <Folder Include="Jsdoc\Apps\CRM\" />
+    <Folder Include="Themes\default\lib\jquery.mobile\" />
+    <Folder Include="Themes\default\sale\" />
+    <Folder Include="Themes\default\service\" />
+    <Folder Include="Themes\default\settings\images\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\teaCRM.Common\4-teaCRM.Common.csproj">
+      <Project>{d03bbc00-649a-43b6-bb8d-65cb34aecc53}</Project>
+      <Name>4-teaCRM.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\teaCRM.Entity\5-teaCRM.Entity.csproj">
+      <Project>{0687c70a-0976-40d8-a069-56ed9e6fff2d}</Project>
+      <Name>5-teaCRM.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\teaCRM.Service\2-teaCRM.Service.csproj">
+      <Project>{087A655B-AB00-4130-A1A5-7EFB707D60FB}</Project>
+      <Name>2-teaCRM.Service</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Base\Desktop\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Base\Account\Login.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Admin\Account\Register.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Apps\Sale\Index\SaleIndex.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Apps\Market\MarketIndex.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Apps\Product\Index\ProductIndex.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Apps\Service\Index\ServiceIndex.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Apps\Settings\Users\UserEdit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Admin\Account\EmailRegister.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Admin\Account\PhoneRegister.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Base\Account\PublicRegister.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="log4net.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Areas\HelpPage\Views\Web.config" />
+    <Content Include="Areas\HelpPage\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\Index.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\TextSample.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\Samples.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\Parameters.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\InvalidSample.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ImageSample.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\HelpPageApiModel.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
+    <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
+    <None Include="Themes\default\lib\bootstrap\css\bootstrap.css.map" />
+    <Content Include="Views\Shared\_Error.cshtml" />
+    <Content Include="Views\Apps\CRM\Customer\CustomerShow.cshtml" />
+    <Content Include="Views\Apps\CRM\Contact\ContactIndex.cshtml" />
+    <Content Include="Views\Apps\Settings\AppMaker\AppMakerIndex.cshtml" />
+    <Content Include="Views\Apps\Settings\Department\DepartmentEdit.cshtml" />
+    <Content Include="Views\Apps\Settings\Department\DepartmentIndex.cshtml" />
+    <Content Include="Views\Apps\Settings\Permission\FunctionPermission.cshtml" />
+    <Content Include="Views\Apps\Settings\Role\RoleEdit.cshtml" />
+    <Content Include="Views\Apps\Settings\Role\RoleIndex.cshtml" />
+    <Content Include="Views\Apps\Settings\Users\UserIndex.cshtml" />
+    <Content Include="Views\Base\Account\Login.Mobile.cshtml" />
+    <Content Include="Views\Base\Account\PublicRegister.Mobile.cshtml" />
+    <Content Include="Views\Shared\_Layout.mobile.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Apps\Settings\AppMaker\AppMakerDetail.cshtml" />
+    <Content Include="Views\Admin\Account\AdminLogin.cshtml" />
+    <Content Include="Views\Admin\App\AppAdd.cshtml" />
+    <Content Include="Views\Admin\Main\MainIndex.cshtml" />
+    <Content Include="Views\Apps\Settings\AppMaker\Field\FieldEdit.cshtml" />
+    <Content Include="Views\Apps\Settings\AppMaker\Toolbar\ToolbarEdit.cshtml" />
+    <Content Include="Views\Apps\Settings\AppMaker\View\ViewEdit.cshtml" />
+    <Content Include="Views\Apps\CRM\Customer\CustomerEdit.cshtml" />
+    <Content Include="Views\Apps\CRM\Contact\_ContactPartial.cshtml" />
+    <Content Include="Views\Apps\CRM\Contact\ContactEdit.cshtml" />
+    <Content Include="Views\Apps\CRM\Pub\_PubPartial.cshtml" />
+    <Content Include="Views\Apps\CRM\Pub\PubIndex.cshtml" />
+    <Content Include="Views\Shared\_Msg.cshtml" />
+    <Content Include="Views\Apps\CRM\Trash\_TrashPartial.cshtml" />
+    <Content Include="Views\Apps\CRM\Trash\TrashIndex.cshtml" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>33179</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:56793/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>
