@@ -10,16 +10,16 @@ namespace teaCRM.Web.Controllers.Api
     public class AppController : ApiController
     {
         //spring 创建service依赖
-        private IFunAppService AppService = (IFunAppService) ContextRegistry.GetContext().GetObject("funAppService");
+        private IFunAppService AppService = (IFunAppService)ContextRegistry.GetContext().GetObject("funAppService");
 
         #region 应用列表 14-09-15 By 唐有炜
 
-       // Get /api/app/GetAllApps
+        // Get /api/app/GetAllApps
         //current 1
         //rowCount 10
         //sort[UserName]
         //searchPhrase 
-         [HttpGet]
+        [HttpGet]
         public IEnumerable<TFunApp> GetAllApps()
         {
             HttpContextBase context = (HttpContextBase)Request.Properties["MS_HttpContext"]; //获取传统context
@@ -27,37 +27,37 @@ namespace teaCRM.Web.Controllers.Api
             //排序
             IDictionary<string, teaCRM.Entity.teaCRMEnums.OrderEmum> orders =
                 new Dictionary<string, teaCRMEnums.OrderEmum>();
-             orders.Add(new KeyValuePair<string, teaCRMEnums.OrderEmum>("id",teaCRMEnums.OrderEmum.Asc));
+            orders.Add(new KeyValuePair<string, teaCRMEnums.OrderEmum>("id", teaCRMEnums.OrderEmum.Asc));
             var count = 0;
-         return   AppService.GetAppLsit(1, 10, out count, orders, a=>a.Id>0);
+            return AppService.GetAppLsit(1, 10, out count, orders, a => a.Id > 0);
         }
 
         #endregion
 
 
 
-         #region 发布应用 14-09-17 By 唐有炜
-        
-         // POST /api/app/addApp
-         [HttpPost]
-         public ResponseMessage AddApp([FromBody] TFunApp app)
-         {
-             ResponseMessage rmsg = new ResponseMessage();
-             if (AppService.AddApp(app))
-             {
-                 rmsg.Status = true;
-             }
-             else
-             {
-                 rmsg.Status = false;
-             }
+        #region 发布应用 14-09-17 By 唐有炜
+
+        // POST /api/app/addApp
+        [HttpPost]
+        public ResponseMessage AddApp([FromBody] TFunApp app)
+        {
+            ResponseMessage rmsg = new ResponseMessage();
+            if (AppService.AddApp(app))
+            {
+                rmsg.Status = true;
+            }
+            else
+            {
+                rmsg.Status = false;
+            }
 
 
-             return rmsg;
-         }
+            return rmsg;
+        }
 
-         #endregion
-     
+        #endregion
+
 
 
 
