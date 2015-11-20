@@ -343,12 +343,12 @@ namespace teaCRM.Common
             if (!string.IsNullOrEmpty(strContent))
             {
                 if (strContent.IndexOf(strSplit) < 0)
-                    return new string[] {strContent};
+                    return new string[] { strContent };
 
                 return Regex.Split(strContent, Regex.Escape(strSplit), RegexOptions.IgnoreCase);
             }
             else
-                return new string[0] {};
+                return new string[0] { };
         }
 
         /// <summary>
@@ -482,18 +482,18 @@ namespace teaCRM.Common
             int rep = 0;
             long num2 = DateTime.Now.Ticks + rep;
             rep++;
-            Random random = new Random(((int) (((ulong) num2) & 0xffffffffL)) | ((int) (num2 >> rep)));
+            Random random = new Random(((int)(((ulong)num2) & 0xffffffffL)) | ((int)(num2 >> rep)));
             for (int i = 0; i < codeCount; i++)
             {
                 char ch;
                 int num = random.Next();
-                if ((num%2) == 0)
+                if ((num % 2) == 0)
                 {
-                    ch = (char) (0x30 + ((ushort) (num%10)));
+                    ch = (char)(0x30 + ((ushort)(num % 10)));
                 }
                 else
                 {
-                    ch = (char) (0x41 + ((ushort) (num%0x1a)));
+                    ch = (char)(0x41 + ((ushort)(num % 0x1a)));
                 }
                 str = str + ch.ToString();
             }
@@ -519,9 +519,9 @@ namespace teaCRM.Common
             uint randomResult = 0x0; //这里用uint作为生成的随机数  
             for (int i = 0; i < length; i++)
             {
-                randomResult |= ((uint) buffer[i] << ((length - 1 - i)*8));
+                randomResult |= ((uint)buffer[i] << ((length - 1 - i) * 8));
             }
-            return (int) (randomResult%numSeeds);
+            return (int)(randomResult % numSeeds);
         }
 
         #endregion
@@ -545,7 +545,7 @@ namespace teaCRM.Common
             byte[] s = ascii.GetBytes(inputString);
             for (int i = 0; i < s.Length; i++)
             {
-                if ((int) s[i] == 63)
+                if ((int)s[i] == 63)
                 {
                     tempLen += 2;
                 }
@@ -880,7 +880,7 @@ namespace teaCRM.Common
             if (File.Exists(fullpath))
             {
                 FileInfo fileInfo = new FileInfo(fullpath);
-                return ((int) fileInfo.Length)/1024;
+                return ((int)fileInfo.Length) / 1024;
             }
             return 0;
         }
@@ -984,7 +984,7 @@ namespace teaCRM.Common
         /// <param name="httpContext">HttpContext</param>
         /// <param name="strName">名称</param>
         /// <param name="strValue">值</param>
-        public static void WriteCookie(HttpContext httpContext,string strName, string strValue)
+        public static void WriteCookie(HttpContext httpContext, string strName, string strValue)
         {
             HttpCookie cookie = httpContext.Request.Cookies[strName];
             if (cookie == null)
@@ -1000,7 +1000,7 @@ namespace teaCRM.Common
         /// </summary>
         /// <param name="httpContext">HttpContext</param>
         /// <param name="strName">strName</param>
-         /// <param name="strValue">值</param>
+        /// <param name="strValue">值</param>
         public static void WriteCookie(HttpContext httpContext, string strName, string key, string strValue)
         {
             HttpCookie cookie = httpContext.Request.Cookies[strName];
@@ -1019,7 +1019,7 @@ namespace teaCRM.Common
         /// <param name="strName">名称</param>
         /// <param name="strValue">值</param>
         /// <param name="expires"></param>
-        public static void WriteCookie(HttpContext httpContext,string strName, string key, string strValue, int expires)
+        public static void WriteCookie(HttpContext httpContext, string strName, string key, string strValue, int expires)
         {
             HttpCookie cookie = httpContext.Request.Cookies[strName];
             if (cookie == null)
@@ -1073,7 +1073,7 @@ namespace teaCRM.Common
         /// <param name="strName">名称</param>
         /// <param name="key"></param>
         /// <returns>cookie值</returns>
-        public static string GetCookie(HttpContext httpContext,string strName, string key)
+        public static string GetCookie(HttpContext httpContext, string strName, string key)
         {
             if (httpContext.Request.Cookies[strName] != null &&
                httpContext.Request.Cookies[strName][key] != null)
@@ -1122,12 +1122,12 @@ namespace teaCRM.Common
             {
                 return "";
             }
-            int pageCount = totalCount/pageSize;
+            int pageCount = totalCount / pageSize;
             if (pageCount < 1)
             {
                 return "";
             }
-            if (totalCount%pageSize > 0)
+            if (totalCount % pageSize > 0)
             {
                 pageCount += 1;
             }
@@ -1159,10 +1159,10 @@ namespace teaCRM.Common
             {
                 lastStr = "<span class=\"current\">" + pageCount.ToString() + "</span>";
             }
-            int firstNum = pageIndex - (centSize/2); //中间开始的页码
+            int firstNum = pageIndex - (centSize / 2); //中间开始的页码
             if (pageIndex < centSize)
                 firstNum = 2;
-            int lastNum = pageIndex + centSize - ((centSize/2) + 1); //中间结束的页码
+            int lastNum = pageIndex + centSize - ((centSize / 2) + 1); //中间结束的页码
             if (lastNum >= pageCount)
                 lastNum = pageCount - 1;
             pageStr.Append(firstBtn + firstStr);
@@ -1181,7 +1181,7 @@ namespace teaCRM.Common
                     pageStr.Append("<a href=\"" + ReplaceStr(linkUrl, pageId, i.ToString()) + "\">" + i + "</a>");
                 }
             }
-            if (pageCount - pageIndex > centSize - ((centSize/2)))
+            if (pageCount - pageIndex > centSize - ((centSize / 2)))
             {
                 pageStr.Append("<span>...</span>");
             }
@@ -1230,7 +1230,7 @@ namespace teaCRM.Common
             StringBuilder urlParams = new StringBuilder();
             try
             {
-                string[] keyArr = _keys.Split(new char[] {'&'});
+                string[] keyArr = _keys.Split(new char[] { '&' });
                 for (int i = 0; i < keyArr.Length; i++)
                 {
                     if (!string.IsNullOrEmpty(_values[i]) && _values[i] != "0")
@@ -1261,7 +1261,7 @@ namespace teaCRM.Common
         /// <returns></returns>
         public static string HttpPost(string url, string param)
         {
-            HttpWebRequest request = (HttpWebRequest) HttpWebRequest.Create(url);
+            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
             request.Method = "POST";
             request.ContentType = "application/x-www-form-urlencoded";
             request.Accept = "*/*";
@@ -1307,7 +1307,7 @@ namespace teaCRM.Common
         /// <returns></returns>
         public static string HttpGet(string url)
         {
-            HttpWebRequest request = (HttpWebRequest) HttpWebRequest.Create(url);
+            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
             request.Method = "GET";
             request.ContentType = "application/x-www-form-urlencoded";
             request.Accept = "*/*";
@@ -1379,7 +1379,7 @@ namespace teaCRM.Common
         public static int[] StringToIntArray(string str, char split)
         {
             string input = str.Replace("，", ",").Trim();
-            string[] str_ids = input.Split(new string[] {","}, StringSplitOptions.RemoveEmptyEntries);
+            string[] str_ids = input.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
             int[] aids = new int[str_ids.Length];
             for (int i = 0; i < str_ids.Length; i++)
             {
@@ -1399,7 +1399,7 @@ namespace teaCRM.Common
         /// <param name="split">分割符</param>
         public static string[] StringToStringArray(string str, char split)
         {
-            var strs = new string[] {"", ""};
+            var strs = new string[] { "", "" };
             try
             {
                 strs = str.Split(split);
@@ -1423,7 +1423,7 @@ namespace teaCRM.Common
         /// <param name="split">分割符</param>
         public static object[] StringToObjectArray(string str, char split)
         {
-            var strs = new object[] {};
+            var strs = new object[] { };
             try
             {
                 strs = str.Split(split);
@@ -1493,7 +1493,7 @@ namespace teaCRM.Common
             for (int i = 0; i < b.Length; i++)
             {
                 byte b1 = b[i];
-                if (i%2 == 0) //一个汉子占两个字节
+                if (i % 2 == 0) //一个汉子占两个字节
                 {
                     result += "\\u";
                 }
@@ -1536,7 +1536,7 @@ namespace teaCRM.Common
 
         #endregion
 
-        #region  删除list中所有为空的元素 
+        #region  删除list中所有为空的元素
 
         /// <summary> 
         ///删除list中所有为空的元素 
@@ -1570,7 +1570,7 @@ namespace teaCRM.Common
         }
 
 
-     
+
         /// <summary> 
         ///删除list中所有为空的元素 
         ///删除为空的操作方式非常复杂，因为你每一次删除一个元素之后， 

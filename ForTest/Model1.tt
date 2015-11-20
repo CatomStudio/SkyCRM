@@ -1,0 +1,18 @@
+﻿
+
+ <#@ template debug="false" hostspecific="false" language="C#" #>
+
+<#@ output extension=".cs" #>
+
+<#@ template debug="false" hostspecific="false" language="C#" #> 
+<#@ output extension=".cs" #>
+
+<# var properties = new string [] {"P1", "P2", "P3"}; #>
+
+class MyGeneratedClass {
+
+<# foreach (string propertyName in properties)
+ { #>
+ private int <#= propertyName #> = 0;
+<# } #>
+}
