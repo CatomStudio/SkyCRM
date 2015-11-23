@@ -24,6 +24,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "5-teaCRM.Entity", "teaCRM.E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForTest", "ForTest\ForTest.csproj", "{3A7E8D0C-7B3E-4E20-B39E-270927073758}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForTestMvc", "ForTestMvc\ForTestMvc.csproj", "{56CB4209-A86D-45B9-B5F0-B3667AE70CAA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -94,6 +96,16 @@ Global
 		{3A7E8D0C-7B3E-4E20-B39E-270927073758}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{3A7E8D0C-7B3E-4E20-B39E-270927073758}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{3A7E8D0C-7B3E-4E20-B39E-270927073758}.Release|x86.ActiveCfg = Release|Any CPU
+		{56CB4209-A86D-45B9-B5F0-B3667AE70CAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56CB4209-A86D-45B9-B5F0-B3667AE70CAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56CB4209-A86D-45B9-B5F0-B3667AE70CAA}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{56CB4209-A86D-45B9-B5F0-B3667AE70CAA}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{56CB4209-A86D-45B9-B5F0-B3667AE70CAA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{56CB4209-A86D-45B9-B5F0-B3667AE70CAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56CB4209-A86D-45B9-B5F0-B3667AE70CAA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56CB4209-A86D-45B9-B5F0-B3667AE70CAA}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{56CB4209-A86D-45B9-B5F0-B3667AE70CAA}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{56CB4209-A86D-45B9-B5F0-B3667AE70CAA}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
