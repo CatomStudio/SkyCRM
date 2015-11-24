@@ -6,6 +6,17 @@ using System.Threading.Tasks;
 
 namespace ForTest
 {
+    public class MabLib
+    {
+        public int x;
+        public int y;
+        public int Sum(int x, int y)
+        {
+            return x + y;
+        }
+    }
+
+
     class Program
     {
         static void Main(string[] args)
@@ -16,7 +27,7 @@ namespace ForTest
             decimal dc = 123.456m;
             float f = 12.67f;
             Console.WriteLine(a.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("en-US")));
-            Console.WriteLine((char)('a' +12 >> 2));
+            Console.WriteLine((char)('a' + 12 >> 2));
             Console.WriteLine(b.GetHashCode());
             Console.WriteLine(a.ToString("D"));
             Console.WriteLine(b.ToString("D"));
@@ -26,4 +37,5 @@ namespace ForTest
         }
 
     }
+
 }
