@@ -7,6 +7,14 @@ window.skyComponent = window.skyComponent || {};
 // dataUrl 数据获取路径
 // paraObj request 参数（json 格式）
 window.skyComponent.SelectCmp = function (dataUrl, reqPara) {
+    // Html
+    this.html =
+        '<div>' +
+            '<select gi="lblOptions">' +
+            '</select>' +
+        '</div>';
+    this._optionFormat = '<option class="" id="" value=""></option>';
+
     // Fields
     this._config = {
         name: "单选框",
@@ -18,7 +26,7 @@ window.skyComponent.SelectCmp = function (dataUrl, reqPara) {
     this._optionItems = [];
     this._return = null;
     var _this = this;
-    var $scope = $(window.skyComponent.SelectCmp.html);
+    var $scope = $(this.html);
 
     // Methods 
     this.setConfig = function (configObj) {
@@ -31,7 +39,7 @@ window.skyComponent.SelectCmp = function (dataUrl, reqPara) {
         if (_this._url != undefined && _this._url != null && _this._url != '') {
             var ajax = {
                 url: _this._url,
-                async: false,
+                async: false, // 防止后续函数的异步执行
                 type: 'Post',
                 dataType: 'json',
                 cache: false,
@@ -55,7 +63,9 @@ window.skyComponent.SelectCmp = function (dataUrl, reqPara) {
 
     this.renderElement = function () {
         for (var i = 0; i < _this._optionItems.length; i++) {
-            var opt = '<option value=' + (i + 1) + '>' + _this._optionItems[i] + '</option>';
+            var opt = $(_this._optionFormat);
+            opt.val(i + 1);
+            opt.html(_this._optionItems[i]);
             $scope.find('[gi~="lblOptions"]').append(opt);
         }
     }
@@ -92,24 +102,26 @@ window.skyComponent.SelectCmp = function (dataUrl, reqPara) {
     // 5. 回调函数
 }
 
-// 组件标签
-window.skyComponent.SelectCmp.html =
-    '<div>' +
-        '<select gi="lblOptions">' +
-        '</select>' +
-    '</div>';
-
 // 拓展方法
-//window.skyComponent.extendClass(SelectCmp, )
+//window.skyComponent.extendClass(SelectCmp, funcs )
 
 
 
 
 // namespace
 window.skyComponent.TextPopupCmp = function () {
+    // Html 
+    this.html =
+        '<div gi="lblTextPanel">' +
+            '<input gi="lblText" />' +
+            '<span gi="btnDelete" name="Delete">删除</span>' +
+            '<button gi="btnCancel" name="Cancel">取消</button>' +
+            '<button gi="btnConfirm" name="Confirm">确定</button>' +
+        '</div>';
+
     // Fields
     var _this = this;
-    var $scope = $(window.skyComponent.TextPopupCmp.html);
+    var $scope = $(this.html);
     this._title = "文本输入框";
     this._text = "";
     this._confirm = $scope.find('[gi~="btnConfirm"]');
@@ -117,7 +129,7 @@ window.skyComponent.TextPopupCmp = function () {
     this._confirmCallBack = null;
     this._cancelCallBack = null;
 
-    // Methods
+    // private methods
     this.setText = function (text) {
         _this._text = text == undefined || text == null ? "" : text;
         $scope.find('[gi~="lblText"]').val(_this._text);
@@ -132,7 +144,7 @@ window.skyComponent.TextPopupCmp = function () {
         return $scope;
     }
 
-    // 添加回调函数
+    // public methods 添加回调函数
     this.addConfirmCallBack = function (confirmCB) {
         _this.confirmCallBack = confirmCB;
     }
@@ -150,9 +162,7 @@ window.skyComponent.TextPopupCmp = function () {
 
     $scope.find('[gi~="btnCancel"]').bind('click', function () {
         _this.setText("");
-
         if (_this.cancelCallBack) {
-            console.log(_this.cancelCallBack)
             _this.cancelCallBack();
         }
     });
@@ -162,13 +172,6 @@ window.skyComponent.TextPopupCmp = function () {
     })
 
 }
-window.skyComponent.TextPopupCmp.html =
-    '<div gi="lblTextPanel">' +
-        '<input gi="lblText" />' +
-        '<div gi="btnDelete" name="Delete">X</div>' +
-        '<button gi="btnCancel" name="Cancel">取消</button>' +
-        '<button gi="btnConfirm" name="Confirm">确定</button>' +
-    '</div>';
 
 
 
