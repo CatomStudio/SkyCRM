@@ -18,9 +18,10 @@
 <script>
 
     var selectCmp = new window.skyComponent.SelectCmp('/Home/GetNameList', null);
+    var selectCmp2 = new window.skyComponent.SelectCmp('/Home/GetNameList', null);
     var textPopupCmp = new window.skyComponent.TextPopupCmp();
     textPopupCmp.addConfirmCallBack(function (text) {
-        alert(text);
+        alert(text,1);
     });
     textPopupCmp.addCancelCallBack(function () {
         //
@@ -28,6 +29,7 @@
 
     $(function () {
         $('#div').append(selectCmp.getElement());
+        $('#div').append(selectCmp2.getElement());
         $('#div').append(textPopupCmp.getElement());
     })
 </script>
