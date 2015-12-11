@@ -16,24 +16,91 @@ namespace ForTest
         }
     }
 
+    /// <summary>
+    ///  结构点框架
+    /// </summary>
+    public abstract class Node
+    {
+        public long ID { get; set; }
+
+        public string Name { get; set; }
+    }
+
+    // 树结构节点
+    public abstract class TreeNode
+    {
+        public long ID { get; set; }
+
+        public string Name { get; set; }
+
+        // 树节点的父节点只有一个
+        public TreeNode Parent { get; set; }
+
+        // 子节点集合
+        public List<TreeNode> Childs { get; set; }
+
+        public bool IsRoot
+        {
+            get { throw new NotImplementedException(); }
+            set { IsRoot = this.Parent == null ? true : false; }
+        }
+
+        public bool IsLeaf
+        {
+            get { throw new NotImplementedException(); }
+            set { IsLeaf = this.Childs == null || this.Childs.Count == 0 ? true : false; }
+        }
+
+        // Methods
+        public abstract void Add(TreeNode node);
+
+    }
+
+    /// <summary>
+    /// <see cref="ForTestMvc.Controllers.Home.Index"/>
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public class TreeNode<T> : TreeNode
+    {
+        public T target { set; get; }
+
+
+        public override void Add(TreeNode node)
+        {
+            try
+            {
+                this.Childs.Add(node);
+            }
+            catch
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+    }
+
+    public class TreeInfo
+    {
+        public long TID { get; set; }
+
+        public string Name { get; set; }
+    }
+
 
     class Program
     {
         static void Main(string[] args)
         {
-            int a = 1;
-            int b = 1;
-            var d = DateTime.Now;
-            decimal dc = 123.456m;
-            float f = 12.67f;
-            Console.WriteLine(a.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("en-US")));
-            Console.WriteLine((char)('a' + 12 >> 2));
-            Console.WriteLine(b.GetHashCode());
-            Console.WriteLine(a.ToString("D"));
-            Console.WriteLine(b.ToString("D"));
-            //Console.WriteLine(dc.GetHashCode().ToString("X"));
-            //Console.WriteLine(dc.ToString().GetHashCode().ToString("X"));
-            //Console.WriteLine(f.ToString());
+            var node = new TreeNode<TreeInfo>();
+            var treeInfos = new TreeNode<TreeInfo>[] { 
+                new TreeNode<TreeInfo> { ID = 1, Name = "Node1"},
+                new TreeNode<TreeInfo>  { ID = 11, Name = "Node2"},
+                new TreeNode<TreeInfo>  {ID = 12, Name = "Node3"},
+                new TreeNode<TreeInfo>  {ID = 112, Name = "Node4"},
+            };
+
+            node.Add(treeInfos[0]);
+
         }
 
     }
