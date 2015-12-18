@@ -32,6 +32,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -41,13 +42,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExpressionTest\ExpressionTest.cs" />
+    <Compile Include="LinqTest\LinqTest.cs" />
+    <Compile Include="LinqTest\LinqToXMLTest.cs" />
     <Compile Include="Node.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Base\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestPlinq.cs" />
+    <Compile Include="Base\TestAbstract.cs" />
+    <Compile Include="Base\TestInterface.cs" />
+    <Compile Include="Base\TestPlinq.cs" />
+    <Compile Include="ReflectionTest\ReflectionTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="JsonTest\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
