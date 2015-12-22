@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Dynamic;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -34,6 +35,14 @@ namespace ForTest.ReflectionTest
 
     }
 
+    public static class DataHelper
+    {
+        //public static IEnumerable<T> Get<T>(this IEnumerable<T> source, Expression<Func<T, bool>> expression)
+        //{
+        //    return source.Where(expression);
+        //}
+    }
+
     class ReflectionContext
     {
 
@@ -50,9 +59,14 @@ namespace ForTest.ReflectionTest
 
     public class Entry
     {
-        public static void Main()
+        public static void Main1()
         {
-            Console.WriteLine();
+            var ipadCode = "ASDSF;AS;2=3";
+            var reg = "[0-9A-Z]+";
+            var ms = Regex.Matches(ipadCode, reg);
+            var c = ms.Count;
+            Console.WriteLine(c);
+            Console.WriteLine(Regex.IsMatch(ipadCode, reg));
         }
     }
 

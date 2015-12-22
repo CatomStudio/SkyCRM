@@ -42,6 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CollectionTest\CollectionTestcs.cs" />
+    <Compile Include="Data\AdoTest.cs" />
+    <Compile Include="Data\DataTest.cs" />
     <Compile Include="ExpressionTest\ExpressionTest.cs" />
     <Compile Include="LinqTest\LinqTest.cs" />
     <Compile Include="LinqTest\LinqToXMLTest.cs" />
