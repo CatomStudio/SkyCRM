@@ -21,7 +21,7 @@
     var selectCmp2 = new window.skyComponent.SelectCmp('/Home/GetNameList', null);
     var textPopupCmp = new window.skyComponent.TextPopupCmp();
     textPopupCmp.addConfirmCallBack(function (text) {
-        alert(text,1);
+        alert(text, 1);
     });
     textPopupCmp.addCancelCallBack(function () {
         //
@@ -31,7 +31,7 @@
         $('#div').append(selectCmp.getElement());
         $('#div').append(selectCmp2.getElement());
         $('#div').append(textPopupCmp.getElement());
-    })
+    });
 </script>
 
 <div id="div">Test below</div>

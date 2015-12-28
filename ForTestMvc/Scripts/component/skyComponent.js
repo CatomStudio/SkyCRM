@@ -169,7 +169,7 @@ window.skyComponent.TextPopupCmp = function () {
 
     $scope.find('[gi~="btnDelete"]').bind('click', function () {
         $scope.remove();
-    })
+    });
 
 }
 

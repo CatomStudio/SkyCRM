@@ -61,12 +61,7 @@ namespace ForTest.ReflectionTest
     {
         public static void Main1()
         {
-            var ipadCode = "ASDSF;AS;2=3";
-            var reg = "[0-9A-Z]+";
-            var ms = Regex.Matches(ipadCode, reg);
-            var c = ms.Count;
-            Console.WriteLine(c);
-            Console.WriteLine(Regex.IsMatch(ipadCode, reg));
+
         }
     }
 

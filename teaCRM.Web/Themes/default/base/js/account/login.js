@@ -238,7 +238,7 @@ function login_ajax(userName, userPassword) {
 //var userName = "15225062328"; 
 function get_account_type(userName) {
     var reg_username = /^\w+@[0-9]+$/i;
-    var reg_email = /^\w+@[a-z0-9]+\.[a-z]+$/i;
+    var reg_email = /^\w+@[a-z0-9]+\.[a-z]+$/i; // 此验证有误吧 by catom
     var reg_phone = /^[1]+[3,5]+\d{9}$/;
     if (reg_username.test(userName)) {
         return "username";
