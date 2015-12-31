@@ -1044,5 +1044,27 @@
             <param name="userId">The user identifier.</param>
             <returns>VCompanyUser.</returns>
         </member>
+        <member name="T:teaCRM.Web.RouteConfig">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:teaCRM.Web.RouteConfig.RegisterRoutes(System.Web.Routing.RouteCollection)">
+            <summary>
+            
+            </summary>
+            <param name="routes"></param>
+        </member>
+        <member name="T:teaCRM.Web.WebApiConfig">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:teaCRM.Web.WebApiConfig.Register(System.Web.Http.HttpConfiguration)">
+            <summary>
+            
+            </summary>
+            <param name="config"></param>
+        </member>
     </members>
 </doc>

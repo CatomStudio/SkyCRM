@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Data;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Collections;
 using System.Data.Common;
 using System.Data.ProviderBase;
 using System.Data.Sql;
@@ -9,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
+using Microsoft.SqlServer.Server;
 
 namespace ForTest.Data
 {
@@ -23,9 +27,10 @@ namespace ForTest.Data
 
     class Entry
     {
-        public static void Main()
+        public static void Main1()
         {
-
+            var arr = new[] { 1, 23, 4 };
+            var query =  from a in arr select a;
         }
 
     }

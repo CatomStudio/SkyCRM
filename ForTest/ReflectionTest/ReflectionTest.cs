@@ -11,6 +11,7 @@ using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Utilities;
 using System.Text.RegularExpressions;
+using System.Threading;
 
 namespace ForTest.ReflectionTest
 {
@@ -45,7 +46,10 @@ namespace ForTest.ReflectionTest
 
     class ReflectionContext
     {
-
+        public void Init()
+        {
+            //var asm = Thread
+        }
     }
 
     // 测试体类
@@ -61,7 +65,7 @@ namespace ForTest.ReflectionTest
     {
         public static void Main1()
         {
-
+            new ReflectionContext().Init();
         }
     }
 
