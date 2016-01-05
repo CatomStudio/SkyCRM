@@ -4,6 +4,7 @@ using System.Runtime.Serialization;
 using System.Security.Permissions;
 using System.Timers;
 
+// 网上找的一个简单ORM的原创。
 namespace ForTest.Data
 {
     /// <summary>
