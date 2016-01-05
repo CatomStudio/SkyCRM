@@ -5,23 +5,10 @@ using System.Data.Sql;
 using System.Data.ProviderBase;
 using System.Text;
 using System.Linq.Expressions;
+using System.Collections.Generic;
 
 namespace ForTest.ExpressionTest
 {
-    internal static class Program
-    {
-        public static void Main()
-        {
-            var uid = new User();
-            uid.Where(userId => (userId.Id == "8" && userId.LoginCount > 5)
-                || userId.Pws != null
-                || userId.Id.Like("%aa")
-                && userId.LoginCount.In(new int?[] { 4, 6, 8, 9 })
-                && userId.Id.NotIn(new[] { "a", "b", "c", "d" })
-            );
-        }
-    }
-
     internal class BaseEntity
     {
         internal string WhereStr;
@@ -34,6 +21,58 @@ namespace ForTest.ExpressionTest
         public string Pws { get; set; }
 
         public int? LoginCount { get; set; }
+    }
+
+    /// <summary>
+    ///  ORM 框架上下文，存放 Ado.Net 处理数据库的对象。
+    ///  目标功能：
+    ///     OrmContext.Get<T>(expression);
+    /// </summary>
+    internal static class OrmContext
+    {
+        public static IEnumerable<T> Get<T>(this IDbConnection connection, Expression<Func<T, bool>> lambdaExp)
+        {            
+            IDbCommand cmd = null;
+            IDataReader reader = null;
+            bool currClosed = connection.State == ConnectionState.Closed;
+
+            try
+            {
+                // 1. 通过 Expression 解析工厂，解析出 Lambda 表达式对应的 SQL 语句；
+                var queryString = ExpressionParseFactory.ExpressionParser(lambdaExp);
+
+                // 2. 创建 Ado.Net 处理数据库的相关对象；
+                if(currClosed)                    
+                    connection.Open();
+                cmd = connection.CreateCommand();
+                cmd.CommandText = queryString;
+                reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    // TODO 循环返回 reader 中读取的每行数据
+
+
+                    yield return default(T);
+                }
+            }
+            finally
+            {
+                if (reader != null)
+                {
+                    reader.Dispose();
+                }
+                if (cmd != null)
+                {
+                    cmd.Dispose();
+                }
+                if (currClosed)
+                {
+                    connection.Close();
+                }
+            }
+        }
+
+
     }
 
     /// <summary>
@@ -89,31 +128,6 @@ namespace ForTest.ExpressionTest
         #endregion
 
         #region Factory
-        static string BinarExpressionProvider(BinaryExpression exp)
-        {
-            var leftExp = exp.Left;
-            var rightExp = exp.Right;
-            var expOpeType = exp.NodeType;
-
-            var expToSql = "(";
-
-            // 先处理左边
-            expToSql += ExpressionParser(leftExp);
-            expToSql += ExpressionTypeCast(expOpeType);
-
-            // 再处理右边
-            var tempStr = ExpressionParser(rightExp);
-            if (tempStr == "null")
-            {
-                if (expToSql.EndsWith(" ="))
-                    expToSql = expToSql.Substring(0, expToSql.Length - 2) + " is null";
-                else if (expToSql.EndsWith("<>"))
-                    expToSql = expToSql.Substring(0, expToSql.Length - 2) + " is not null";
-            }
-            else
-                expToSql += tempStr;
-            return expToSql + ")";
-        }
 
         /// <summary>
         ///  表达式解离器。<br/>
@@ -192,10 +206,37 @@ namespace ForTest.ExpressionTest
                     return string.Format("'{0}'", ce.Value);
             }
             #endregion
-            return null;
+
+            return string.Empty;
         }
 
-        public static string ExpressionTypeCast(ExpressionType type)
+        private static string BinarExpressionProvider(BinaryExpression exp)
+        {
+            var leftExp = exp.Left;
+            var rightExp = exp.Right;
+            var expOpeType = exp.NodeType;
+
+            var expToSql = "(";
+
+            // 先处理左边
+            expToSql += ExpressionParser(leftExp);
+            expToSql += ExpressionTypeCast(expOpeType);
+
+            // 再处理右边
+            var tempStr = ExpressionParser(rightExp);
+            if (tempStr == "null")
+            {
+                if (expToSql.EndsWith(" ="))
+                    expToSql = expToSql.Substring(0, expToSql.Length - 2) + " is null";
+                else if (expToSql.EndsWith("<>"))
+                    expToSql = expToSql.Substring(0, expToSql.Length - 2) + " is not null";
+            }
+            else
+                expToSql += tempStr;
+            return expToSql + ")";
+        }
+
+        private static string ExpressionTypeCast(ExpressionType type)
         {
             switch (type)
             {
@@ -238,5 +279,18 @@ namespace ForTest.ExpressionTest
     }
 
 
+    internal static class Program
+    {
+        public static void Main()
+        {
+            var uid = new User();
+            uid.Where(userId => (userId.Id == "8" && userId.LoginCount > 5)
+                || userId.Pws != null
+                || userId.Id.Like("%aa")
+                && userId.LoginCount.In(new int?[] { 4, 6, 8, 9 })
+                && userId.Id.NotIn(new[] { "a", "b", "c", "d" })
+            );
+        }
+    }
 }
 
