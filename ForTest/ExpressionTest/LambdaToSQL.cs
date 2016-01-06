@@ -6,32 +6,79 @@ using System.Data.ProviderBase;
 using System.Text;
 using System.Linq.Expressions;
 using System.Collections.Generic;
+using System.Configuration;
+using MySql.Data;
+using MySql.Data.Common;
+using MySql.Data.MySqlClient;
 
 namespace ForTest.ExpressionTest
 {
-    internal class BaseEntity
+
+
+    /// <summary>
+    ///  实体类。
+    /// </summary>
+    public class Person
     {
-        internal string WhereStr;
-    }
+        public long Id { get; set; }
 
-    internal class User : BaseEntity
-    {
-        public string Id { get; set; }
+        public string Name { get; set; }
 
-        public string Pws { get; set; }
+        public int Age { get; set; }
 
-        public int? LoginCount { get; set; }
+        public string Address { get; set; }
     }
 
     /// <summary>
-    ///  ORM 框架上下文，存放 Ado.Net 处理数据库的对象。
+    ///  数据库连接处理类。
+    /// </summary>
+    public class DBUtil
+    {
+        public IDbConnection connection;
+        public string connString = string.Empty;
+
+        public DBUtil()
+        {
+            var connString = ConfigurationManager.ConnectionStrings["testConn"].ConnectionString;
+            connection = new MySqlConnection(connString);
+        }
+
+        public DBUtil(string connString)
+        {
+            connection = new MySqlConnection(connString);
+        }
+
+        public bool Open()
+        {
+            try
+            {
+                if (connection.State != ConnectionState.Open)
+                {
+                    connection.Open();
+                }
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+            return false;
+        }
+
+
+    }
+
+    /// <summary>
+    ///  静态类，功能目标类似 Dapper，提供 Ado.Net + MySql 的数据库操作细节。
     ///  目标功能：
-    ///     OrmContext.Get<T>(expression);
+    ///     提供CRUD的底层实现，如：
+    ///         OrmContext.Query<T>(queryString);
+    ///         OrmContext.Get<T>(expression);
     /// </summary>
     internal static class OrmContext
     {
         public static IEnumerable<T> Get<T>(this IDbConnection connection, Expression<Func<T, bool>> lambdaExp)
-        {            
+        {
             IDbCommand cmd = null;
             IDataReader reader = null;
             bool currClosed = connection.State == ConnectionState.Closed;
@@ -42,7 +89,7 @@ namespace ForTest.ExpressionTest
                 var queryString = ExpressionParseFactory.ExpressionParser(lambdaExp);
 
                 // 2. 创建 Ado.Net 处理数据库的相关对象；
-                if(currClosed)                    
+                if (currClosed)
                     connection.Open();
                 cmd = connection.CreateCommand();
                 cmd.CommandText = queryString;
@@ -76,7 +123,8 @@ namespace ForTest.ExpressionTest
     }
 
     /// <summary>
-    ///  SQL 条件关键字对应的方法。
+    ///  静态类：
+    ///  查询条件表达式解析工厂，提供完整的表达式解析方法。
     /// </summary>
     internal static class ExpressionParseFactory
     {
@@ -126,6 +174,8 @@ namespace ForTest.ExpressionTest
             cmd.ExecuteNonQuery();
         }
         #endregion
+
+
 
         #region Factory
 
@@ -279,17 +329,41 @@ namespace ForTest.ExpressionTest
     }
 
 
+    #region Entity to SQL demo
+    internal class BaseEntity
+    {
+        internal string WhereStr;
+    }
+
+    internal class User : BaseEntity
+    {
+        public string Id { get; set; }
+
+        public string Pws { get; set; }
+
+        public int? LoginCount { get; set; }
+    }
+    #endregion
+
+
     internal static class Program
     {
         public static void Main()
         {
-            var uid = new User();
-            uid.Where(userId => (userId.Id == "8" && userId.LoginCount > 5)
-                || userId.Pws != null
-                || userId.Id.Like("%aa")
-                && userId.LoginCount.In(new int?[] { 4, 6, 8, 9 })
-                && userId.Id.NotIn(new[] { "a", "b", "c", "d" })
-            );
+            //var uid = new User();
+            //uid.Where(userId => (userId.Id == "8" && userId.LoginCount > 5)
+            //    || userId.Pws != null
+            //    || userId.Id.Like("%aa")
+            //    && userId.LoginCount.In(new int?[] { 4, 6, 8, 9 })
+            //    && userId.Id.NotIn(new[] { "a", "b", "c", "d" })
+            //);
+
+            DBUtil db = new DBUtil();
+            db.Open();
+
+            var data = db.connection.Get<Person>(p => p.Id == 1);
+
+
         }
     }
 }
