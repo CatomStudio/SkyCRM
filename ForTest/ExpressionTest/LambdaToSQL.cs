@@ -5,11 +5,15 @@ using System.Data.Sql;
 using System.Data.ProviderBase;
 using System.Text;
 using System.Linq.Expressions;
+using System.Linq;
 using System.Collections.Generic;
 using System.Configuration;
 using MySql.Data;
 using MySql.Data.Common;
 using MySql.Data.MySqlClient;
+using System.IO;
+using System.Net;
+using System.Net.WebSockets;
 
 namespace ForTest.ExpressionTest
 {
@@ -28,6 +32,7 @@ namespace ForTest.ExpressionTest
 
         public string Address { get; set; }
     }
+
 
     /// <summary>
     ///  数据库连接处理类。
@@ -48,6 +53,15 @@ namespace ForTest.ExpressionTest
             connection = new MySqlConnection(connString);
         }
 
+        public static IDbConnection GetConn()
+        {
+            var connString = ConfigurationManager.ConnectionStrings["testConn"].ConnectionString;
+            var conn = new MySqlConnection(connString);
+            conn.Open();
+            return conn;
+        }
+
+
         public bool Open()
         {
             try
@@ -62,11 +76,11 @@ namespace ForTest.ExpressionTest
             {
                 return false;
             }
-            return false;
         }
 
 
     }
+
 
     /// <summary>
     ///  静态类，功能目标类似 Dapper，提供 Ado.Net + MySql 的数据库操作细节。
@@ -74,10 +88,11 @@ namespace ForTest.ExpressionTest
     ///     提供CRUD的底层实现，如：
     ///         OrmContext.Query<T>(queryString);
     ///         OrmContext.Get<T>(expression);
+    ///         Expression<Func<T, bool>>
     /// </summary>
-    internal static class OrmContext
+    public static class OrmContext
     {
-        public static IEnumerable<T> Get<T>(this IDbConnection connection, Expression<Func<T, bool>> lambdaExp)
+        public static IEnumerable<T> Get<T>(this IDbConnection connection, Expression<Func<T, bool>> expression)
         {
             IDbCommand cmd = null;
             IDataReader reader = null;
@@ -86,7 +101,7 @@ namespace ForTest.ExpressionTest
             try
             {
                 // 1. 通过 Expression 解析工厂，解析出 Lambda 表达式对应的 SQL 语句；
-                var queryString = ExpressionParseFactory.ExpressionParser(lambdaExp);
+                var queryString = ExpressionParseFactory.ExpressionParser(expression.Body);
 
                 // 2. 创建 Ado.Net 处理数据库的相关对象；
                 if (currClosed)
@@ -98,9 +113,13 @@ namespace ForTest.ExpressionTest
                 {
                     // TODO 循环返回 reader 中读取的每行数据
 
-
-                    yield return default(T);
+                    break;
+                    //yield return default(T);
                 }
+            }
+            catch (Exception e)
+            {
+                throw e;
             }
             finally
             {
@@ -117,6 +136,9 @@ namespace ForTest.ExpressionTest
                     connection.Close();
                 }
             }
+
+            var arr = new T[] { default(T), default(T) };
+            return arr;
         }
 
 
@@ -128,6 +150,9 @@ namespace ForTest.ExpressionTest
     /// </summary>
     internal static class ExpressionParseFactory
     {
+
+        #region ** 注：暂时不用
+
         #region SQL Where 内关键字
         public static bool In<T>(this T obj, T[] array)
         {
@@ -155,13 +180,13 @@ namespace ForTest.ExpressionTest
         #endregion
 
         #region SQL SentenceUtil
-        public static void Where<T>(this T entity, Expression<Func<T, bool>> func) where T : BaseEntity
-        {
-            if (!(func.Body is BinaryExpression))
-                return;
-            var exp = func.Body;
-            entity.WhereStr = ExpressionParser(exp);
-        }
+        //public static void Where<T>(this T entity, Expression<Func<T, bool>> func) // where T : BaseEntity
+        //{
+        //    if (!(func.Body is BinaryExpression))
+        //        return;
+        //    var exp = func.Body;
+        //    entity.WhereStr = ExpressionParser(exp);
+        //}
 
         public static void GroupBy<T>(this T entity) { }
 
@@ -175,12 +200,13 @@ namespace ForTest.ExpressionTest
         }
         #endregion
 
+        #endregion
 
 
         #region Factory
 
         /// <summary>
-        ///  表达式解离器。<br/>
+        ///  自递归表达式解离器。<br/>
         ///  将非叶子表达式解离成叶子表达式，然后可以取到可以取到Lambda表达式的节点变量名和变量值，用以拼接成SQL语句。<br/>
         ///  
         ///  * 注： 
@@ -234,7 +260,7 @@ namespace ForTest.ExpressionTest
                     case "NotIn":
                         return string.Format("{0} Not In {1}", ExpressionParser(mce.Arguments[0]), ExpressionParser(mce.Arguments[1]));
                     default:
-                        return null;
+                        return string.Empty;
                 }
             }
             #endregion
@@ -257,7 +283,14 @@ namespace ForTest.ExpressionTest
             }
             #endregion
 
-            return string.Empty;
+
+            if (exp is Expression)
+            {
+
+            }
+
+            // 未考虑到的表达式 或者 格式不正确的表达式，以异常的形式提示
+            throw new Exception("error：表达式格式不支持！");
         }
 
         private static string BinarExpressionProvider(BinaryExpression exp)
@@ -286,6 +319,11 @@ namespace ForTest.ExpressionTest
             return expToSql + ")";
         }
 
+        /// <summary>
+        ///  操作符转换
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
         private static string ExpressionTypeCast(ExpressionType type)
         {
             switch (type)
@@ -329,42 +367,65 @@ namespace ForTest.ExpressionTest
     }
 
 
-    #region Entity to SQL demo
-    internal class BaseEntity
-    {
-        internal string WhereStr;
-    }
-
-    internal class User : BaseEntity
-    {
-        public string Id { get; set; }
-
-        public string Pws { get; set; }
-
-        public int? LoginCount { get; set; }
-    }
-    #endregion
-
-
     internal static class Program
     {
+
+        /// <summary>
+        ///  读取网站文件
+        /// </summary>
+        /// <param name="ossUrl"></param>
+        /// <returns></returns>
+        public static bool ReadOssFile(string ossUrl)
+        {
+            try
+            {
+                // 读取 Oss 文件
+                HttpWebRequest request = (HttpWebRequest)System.Net.WebRequest.Create(ossUrl);
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                Stream stream = response.GetResponseStream();
+
+                // 写文件
+                FileStream fileStream = File.Create("D://a.mp3");
+                byte[] buffer = new byte[1024];
+                int numReadByte = 0;
+                while ((numReadByte = stream.Read(buffer, 0, 1024)) != 0)
+                {
+                    fileStream.Write(buffer, 0, numReadByte);
+                }
+                fileStream.Close();
+                stream.Close();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+            return true;
+        }
+
+
+
         public static void Main()
         {
-            //var uid = new User();
-            //uid.Where(userId => (userId.Id == "8" && userId.LoginCount > 5)
-            //    || userId.Pws != null
-            //    || userId.Id.Like("%aa")
-            //    && userId.LoginCount.In(new int?[] { 4, 6, 8, 9 })
-            //    && userId.Id.NotIn(new[] { "a", "b", "c", "d" })
-            //);
+            // Test
+            var uri = @"http://testmyaudios.oss.aliyuncs.com/Test/Audio/20140730141622-0d982.mp3";
+            ReadOssFile(uri);
 
-            DBUtil db = new DBUtil();
-            db.Open();
 
-            var data = db.connection.Get<Person>(p => p.Id == 1);
-
+            // 测试
+            var conn = DBUtil.GetConn();
+            try
+            {
+                var data = conn.Get<Person>(p => p.Id == 1);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
 
         }
     }
+
+
 }
 
