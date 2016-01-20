@@ -375,14 +375,14 @@ namespace ForTest.ExpressionTest
         /// </summary>
         /// <param name="ossUrl"></param>
         /// <returns></returns>
-        public static bool ReadOssFile(string ossUrl)
+        public static bool ReadFromUri(string ossUrl)
         {
             try
             {
                 // 读取 Oss 文件
                 HttpWebRequest request = (HttpWebRequest)System.Net.WebRequest.Create(ossUrl);
                 HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-                Stream stream = response.GetResponseStream();
+                var stream = response.GetResponseStream();
 
                 // 写文件
                 FileStream fileStream = File.Create("D://a.mp3");
@@ -407,11 +407,6 @@ namespace ForTest.ExpressionTest
 
         public static void Main()
         {
-            // Test
-            var uri = @"http://testmyaudios.oss.aliyuncs.com/Test/Audio/20140730141622-0d982.mp3";
-            ReadOssFile(uri);
-
-
             // 测试
             var conn = DBUtil.GetConn();
             try
