@@ -24,7 +24,7 @@ function jQuery(a, c) {
     if (a.jquery)
         return $(jQuery.merge(a, []));
 
-    // Watch for when a jQuery object is passed at the context
+    // Watch for when a jQuery object is passed at the contextl
     if (c && c.jquery)
         return $(c).find(a);
 
@@ -265,6 +265,7 @@ jQuery.fn = jQuery.prototype = {
 };
 
 jQuery.extend = jQuery.fn.extend = function (obj, prop) {
+    console.log(prop); // note log
     if (!prop) { prop = obj; obj = this; }
     for (var i in prop) obj[i] = prop[i];
     return obj;
@@ -931,6 +932,7 @@ jQuery.extend({
     }
 });
 
+// note: 对浏览器类型判断，以及判断CSS渲染器
 new function () {
     var b = navigator.userAgent.toLowerCase();
 
@@ -1133,6 +1135,7 @@ jQuery.extend({
     }
 });
 
+// note: 添加事件处理操作
 new function () {
 
     var e = ("blur,focus,load,resize,scroll,unload,click,dblclick," +
