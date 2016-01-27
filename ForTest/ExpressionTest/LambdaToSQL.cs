@@ -44,7 +44,7 @@ namespace ForTest.ExpressionTest
 
         public DBUtil()
         {
-            var connString = ConfigurationManager.ConnectionStrings["testConn"].ConnectionString;
+            var connString = ConfigurationManager.ConnectionStrings["mysqlConn"].ConnectionString;
             connection = new MySqlConnection(connString);
         }
 

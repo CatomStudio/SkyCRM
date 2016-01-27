@@ -11,9 +11,12 @@
 
 // Global undefined variable
 window.undefined = window.undefined;
+
+// note: 1. core自递归类体定义。在 document 域中创建一个 jQuery 实例对象
 function jQuery(a, c) {
 
     // Shortcut for document ready (because $(document).each() is silly)
+	// note: usage eg.. $(function(){}).ready();
     if (a && a.constructor == Function && jQuery.fn.ready)
         return jQuery(document).ready(a);
 
@@ -59,6 +62,8 @@ if ($)
 // Map the jQuery namespace to the '$' one
 var $ = jQuery;
 
+
+// note: 2. 原型方法容器初始值。非静态方法，供 jQuery 实例对象使用
 jQuery.fn = jQuery.prototype = {
     jquery: "$Rev: 509 $",
 
@@ -264,7 +269,7 @@ jQuery.fn = jQuery.prototype = {
     }
 };
 
-// note: 静态方法、原型方法的继承原理
+// note: 3. 继承：静态方法、原型方法的拓展原理
 jQuery.extend = jQuery.fn.extend = function (obj, prop) {
     console.log('#jQuery.extend \n ' + obj + '\n' + prop); // note: log
     console.log(obj); // note: log
@@ -274,7 +279,8 @@ jQuery.extend = jQuery.fn.extend = function (obj, prop) {
     return obj;
 };
 
-// note: 
+
+// note: 4. 拓展基本的静态方法，作为基本工具
 jQuery.extend({
     init: function () {
         jQuery.initDone = true;
@@ -328,7 +334,8 @@ jQuery.extend({
         });
 
     },
-    each: function (obj, fn, args) {
+    
+	each: function (obj, fn, args) {
         if (obj.length == undefined)
             for (var i in obj)
                 fn.apply(obj[i], args || [i, obj[i]]);
@@ -354,7 +361,8 @@ jQuery.extend({
             return new RegExp("(^|\\s)" + a + "(\\s|$)").test(e);
         }
     },
-    swap: function (e, o, f) {
+    
+	swap: function (e, o, f) {
         for (var i in o) {
             e.style["old" + i] = e.style[i];
             e.style[i] = o[i];
@@ -526,7 +534,8 @@ jQuery.extend({
 		    return r;
 		}
     ],
-    find: function (t, context) {
+    
+	find: function (t, context) {
         // Make sure that the context is a DOM Element
         if (context && context.nodeType == undefined)
             context = null;
@@ -716,10 +725,12 @@ jQuery.extend({
         // and the modified expression string (t)
         return { r: r, t: t };
     },
-    trim: function (t) {
+    
+	trim: function (t) {
         return t.replace(/^\s+|\s+$/g, "");
     },
-    parents: function (elem) {
+    
+	parents: function (elem) {
         var matched = [];
         var cur = elem.parentNode;
         while (cur && cur != document) {
@@ -728,7 +739,8 @@ jQuery.extend({
         }
         return matched;
     },
-    sibling: function (elem, pos, not) {
+    
+	sibling: function (elem, pos, not) {
         var elems = [];
 
         var siblings = elem.parentNode.childNodes;
@@ -748,7 +760,8 @@ jQuery.extend({
             next: elems[elems.n + 1]
         });
     },
-    merge: function (first, second) {
+    
+	merge: function (first, second) {
         var result = [];
 
         // Move b over to the new array (this helps to avoid
@@ -773,7 +786,8 @@ jQuery.extend({
 
         return result;
     },
-    grep: function (elems, fn, inv) {
+    
+	grep: function (elems, fn, inv) {
         // If a string is passed in for the function, make a function
         // for it (a handy shortcut)
         if (fn.constructor == String)
@@ -789,7 +803,8 @@ jQuery.extend({
 
         return result;
     },
-    map: function (elems, fn) {
+    
+	map: function (elems, fn) {
         // If a string is passed in for the function, make a function
         // for it (a handy shortcut)
         if (fn.constructor == String)
@@ -934,8 +949,10 @@ jQuery.extend({
         }
 
     }
+	
 });
 
+// note: 5. 样式处理模块：添加相关的成员变量、方法
 // note: 对浏览器类型判断，以及判断CSS渲染器
 new function () {
     var b = navigator.userAgent.toLowerCase();
@@ -1052,9 +1069,10 @@ jQuery.macros = {
     }
 };
 
+// note: 初始化 jQuery，此时所有成员变量已添加
 jQuery.init();
 
-// note: 原型继承
+// note: 拓展样式处理方法
 jQuery.fn.extend({
     // We're overriding the old toggle function, so
     // remember it for later
@@ -1097,7 +1115,8 @@ jQuery.fn.extend({
         // Bind the function to the two event listeners
         return this.mouseover(handleHover).mouseout(handleHover);
     },
-    ready: function (f) {
+    
+	ready: function (f) {
         // If the DOM is already ready
         if (jQuery.isReady)
             // Execute the function immediately
@@ -1111,9 +1130,10 @@ jQuery.fn.extend({
 
         return this;
     }
+
 }); // end 原型继承
 
-// note: jQuery 继承
+// note: jQuery 拓展 ready 静态方法
 jQuery.extend({
     /*
 	 * All the code that makes DOM Ready work nicely.
@@ -1139,9 +1159,11 @@ jQuery.extend({
             }
         }
     }
+	
 });
 
-// note: 添加事件处理操作
+// note: 6. 事件及动态处理模块：添加相关的处理方法
+// note: 封装绑定页面事件及其方法
 new function () {
 
     var e = ("blur,focus,load,resize,scroll,unload,click,dblclick," +
@@ -1228,6 +1250,7 @@ new function () {
 
 };
 
+// note: 添加动态处理的原型方法
 jQuery.fn.extend({
 
     // overwrite the old show method
@@ -1274,7 +1297,8 @@ jQuery.fn.extend({
     fadeTo: function (speed, to, callback) {
         return this.animate({ opacity: to }, speed, callback);
     },
-    animate: function (prop, speed, callback) {
+    
+	animate: function (prop, speed, callback) {
         return this.queue(function () {
 
             this.curAnim = prop;
@@ -1289,7 +1313,8 @@ jQuery.fn.extend({
 
         });
     },
-    queue: function (type, fn) {
+    
+	queue: function (type, fn) {
         if (!fn) {
             fn = type;
             type = "fx";
@@ -1535,6 +1560,9 @@ jQuery.extend({
     }
 
 });
+
+
+// note: 7. 异步模块
 // AJAX Plugin
 // Docs Here:
 // http://jquery.com/docs/ajax/
@@ -1599,6 +1627,7 @@ if (jQuery.browser.msie)
 		);
     };
 
+// note: 将方法名入栈
 // Attach a bunch of functions for handling common AJAX events
 new function () {
     var e = "ajaxStart,ajaxStop,ajaxComplete,ajaxError,ajaxSuccess".split(',');
@@ -1611,6 +1640,7 @@ new function () {
     };
 };
 
+// note: 拓展异步方法
 jQuery.extend({
     get: function (url, data, callback, type, ifModified) {
         if (data.constructor == Function) {
@@ -1634,7 +1664,8 @@ jQuery.extend({
     getScript: function (url, data, callback) {
         jQuery.get(url, data, callback, "script");
     },
-    post: function (url, data, callback, type) {
+    
+	post: function (url, data, callback, type) {
         // Build and start the HTTP Request
         jQuery.ajax("POST", url, jQuery.param(data), function (r, status) {
             if (callback) callback(jQuery.httpData(r, type), status);
@@ -1822,3 +1853,12 @@ jQuery.extend({
     }
 
 });
+
+
+
+
+
+
+
+
+
