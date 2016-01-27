@@ -10,10 +10,14 @@ v1.0.0
 6. 事件操作；
 
 【几个前提理解】
-_$ = $ = jQuery 核心类；
-jQuery.fn = jQuery.prototype 原型对象（jQuery 对象的实例）；
+_$ = $ = jQuery 类——静态方法类——jQuery.extend()；
+jQuery.fn = jQuery.prototype 对象（jQuery 类的实例）——原型方法类——jQuery(elem).extend()；
+__proto__ 此对象（变量、对象、方法等）的类型；
 
-
+【初始化入口】
+var jQuery = ...
+init:
+var $ = jQuery;
 
 
 

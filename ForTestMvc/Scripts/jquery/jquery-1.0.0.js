@@ -264,13 +264,17 @@ jQuery.fn = jQuery.prototype = {
     }
 };
 
+// note: 静态方法、原型方法的继承原理
 jQuery.extend = jQuery.fn.extend = function (obj, prop) {
-    console.log(prop); // note log
+    console.log('#jQuery.extend \n ' + obj + '\n' + prop); // note: log
+    console.log(obj); // note: log
+    console.log(prop); // note: log
     if (!prop) { prop = obj; obj = this; }
     for (var i in prop) obj[i] = prop[i];
     return obj;
 };
 
+// note: 
 jQuery.extend({
     init: function () {
         jQuery.initDone = true;
@@ -955,8 +959,7 @@ jQuery.macros = {
         insertBefore: "before",
         insertAfter: "after"
     },
-
-
+    
     css: "width,height,top,left,position,float,overflow,color,background".split(","),
 
     filter: ["eq", "lt", "gt", "contains"],
@@ -1049,8 +1052,10 @@ jQuery.macros = {
     }
 };
 
-jQuery.init(); jQuery.fn.extend({
+jQuery.init();
 
+// note: 原型继承
+jQuery.fn.extend({
     // We're overriding the old toggle function, so
     // remember it for later
     _toggle: jQuery.fn.toggle,
@@ -1106,8 +1111,9 @@ jQuery.init(); jQuery.fn.extend({
 
         return this;
     }
-});
+}); // end 原型继承
 
+// note: jQuery 继承
 jQuery.extend({
     /*
 	 * All the code that makes DOM Ready work nicely.
@@ -1221,6 +1227,7 @@ new function () {
     jQuery.event.add(window, "load", jQuery.ready);
 
 };
+
 jQuery.fn.extend({
 
     // overwrite the old show method
