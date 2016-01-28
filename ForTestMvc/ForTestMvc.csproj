@@ -270,8 +270,9 @@
     <Content Include="Scripts\jquery\jquery-1.4.2.js" />
     <Content Include="Scripts\jquery\jquery-1.8.1.js" />
     <Content Include="Scripts\jquery\jquery-1.9.1.js" />
-    <Content Include="Scripts\jquery\test.html" />
-    <Content Include="Scripts\jquery\test.js" />
+    <Content Include="Scripts\jquery\test\core.js" />
+    <Content Include="Scripts\jquery\test\test.html" />
+    <Content Include="Scripts\jquery\test\test.js" />
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />

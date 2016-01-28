@@ -9,14 +9,18 @@
  * $Rev: 509 $
  */
 
+// note: 0. 说明：
+//	静态容器，jQuery 类中静态方法集，$.extends();
+//	原型容器，jQuery 类中的非静态方法集，实例使用，$('div').extends();
+ 
 // Global undefined variable
 window.undefined = window.undefined;
 
-// note: 1. core自递归类体定义。在 document 域中创建一个 jQuery 实例对象
+// note: 1. jQuery容器构造器。如在 document 域中创建一个 jQuery 实例对象
 function jQuery(a, c) {
 
     // Shortcut for document ready (because $(document).each() is silly)
-	// note: usage eg.. $(function(){}).ready();
+    // note: usage eg.. $(function(){}).ready();
     if (a && a.constructor == Function && jQuery.fn.ready)
         return jQuery(document).ready(a);
 
@@ -31,6 +35,7 @@ function jQuery(a, c) {
     if (c && c.jquery)
         return $(c).find(a);
 
+    // note: ** 此处是唯一的对象实例化位置。
     // If the context is global, return a new object
     if (window == this)
         return new jQuery(a, c);
@@ -63,7 +68,7 @@ if ($)
 var $ = jQuery;
 
 
-// note: 2. 原型方法容器初始值。非静态方法，供 jQuery 实例对象使用
+// note: 2. 原型容器初始方法集。非静态方法，某些实现需要依赖拓展的静态方法
 jQuery.fn = jQuery.prototype = {
     jquery: "$Rev: 509 $",
 
@@ -90,7 +95,8 @@ jQuery.fn = jQuery.prototype = {
 				// Return just the object
 				this[num];
     },
-    each: function (fn, args) {
+    
+	each: function (fn, args) {
         return jQuery.each(this, fn, args);
     },
 
@@ -130,7 +136,8 @@ jQuery.fn = jQuery.prototype = {
     css: function (key, value) {
         return this.attr(key, value, "curCSS");
     },
-    text: function (e) {
+    
+	text: function (e) {
         e = e || this;
         var t = "";
         for (var j = 0; j < e.length; j++) {
@@ -141,7 +148,8 @@ jQuery.fn = jQuery.prototype = {
         }
         return t;
     },
-    wrap: function () {
+    
+	wrap: function () {
         // The elements to wrap the target around
         var a = jQuery.clean(arguments);
 
@@ -161,30 +169,36 @@ jQuery.fn = jQuery.prototype = {
             b.appendChild(this);
         });
     },
-    append: function () {
+    
+	append: function () {
         return this.domManip(arguments, true, 1, function (a) {
             this.appendChild(a);
         });
     },
-    prepend: function () {
+    
+	prepend: function () {
         return this.domManip(arguments, true, -1, function (a) {
             this.insertBefore(a, this.firstChild);
         });
     },
-    before: function () {
+    
+	before: function () {
         return this.domManip(arguments, false, 1, function (a) {
             this.parentNode.insertBefore(a, this);
         });
     },
-    after: function () {
+    
+	after: function () {
         return this.domManip(arguments, false, -1, function (a) {
             this.parentNode.insertBefore(a, this.nextSibling);
         });
     },
-    end: function () {
+    
+	end: function () {
         return this.get(this.stack.pop());
     },
-    find: function (t) {
+    
+	find: function (t) {
         return this.pushStack(jQuery.map(this, function (a) {
             return jQuery.find(t, a);
         }), arguments);
@@ -224,10 +238,12 @@ jQuery.fn = jQuery.prototype = {
         return this.pushStack(jQuery.merge(this, t.constructor == String ?
 			jQuery.find(t) : t.constructor == Array ? t : [t]), arguments);
     },
-    is: function (expr) {
+    
+	is: function (expr) {
         return expr ? jQuery.filter(expr, this).r.length > 0 : this.length > 0;
     },
-    domManip: function (args, table, dir, fn) {
+    
+	domManip: function (args, table, dir, fn) {
         var clone = this.size() > 1;
         var a = jQuery.clean(args);
 
@@ -250,7 +266,8 @@ jQuery.fn = jQuery.prototype = {
             }
         });
     },
-    pushStack: function (a, args) {
+    
+	pushStack: function (a, args) {
         var fn = args && args[args.length - 1];
 
         if (!fn || fn.constructor != Function) {
@@ -267,9 +284,11 @@ jQuery.fn = jQuery.prototype = {
 
         return this;
     }
+
 };
 
-// note: 3. 继承：静态方法、原型方法的拓展原理
+
+// note: 3. 继承：容器拓展的实现机制
 jQuery.extend = jQuery.fn.extend = function (obj, prop) {
     console.log('#jQuery.extend \n ' + obj + '\n' + prop); // note: log
     console.log(obj); // note: log
@@ -280,8 +299,10 @@ jQuery.extend = jQuery.fn.extend = function (obj, prop) {
 };
 
 
-// note: 4. 拓展基本的静态方法，作为基本工具
+// note: 4. 静态容器拓展方法集，作为基本工具集 utils（选择、过滤、事件等）
 jQuery.extend({
+	
+	// note: init 方法只是将后面增加的“样式处理模块”的初始变量添加至jQuery
     init: function () {
         jQuery.initDone = true;
 
@@ -334,8 +355,8 @@ jQuery.extend({
         });
 
     },
-    
-	each: function (obj, fn, args) {
+
+    each: function (obj, fn, args) {
         if (obj.length == undefined)
             for (var i in obj)
                 fn.apply(obj[i], args || [i, obj[i]]);
@@ -361,8 +382,8 @@ jQuery.extend({
             return new RegExp("(^|\\s)" + a + "(\\s|$)").test(e);
         }
     },
-    
-	swap: function (e, o, f) {
+
+    swap: function (e, o, f) {
         for (var i in o) {
             e.style["old" + i] = e.style[i];
             e.style[i] = o[i];
@@ -534,8 +555,9 @@ jQuery.extend({
 		    return r;
 		}
     ],
-    
-	find: function (t, context) {
+
+    // note: t 指查找的标记 (token)
+    find: function (t, context) {
         // Make sure that the context is a DOM Element
         if (context && context.nodeType == undefined)
             context = null;
@@ -556,7 +578,7 @@ jQuery.extend({
                 t = t.substr(t.indexOf("/"), t.length);
         }
 
-        var ret = [context];
+        var ret = [context]; // 对象转型为数组
         var done = [];
         var last = null;
 
@@ -620,6 +642,7 @@ jQuery.extend({
         return done;
     },
 
+    // note: o 查找的域节点，r 结果集
     getAll: function (o, r) {
         r = r || [];
         var s = o.childNodes;
@@ -653,6 +676,7 @@ jQuery.extend({
         }
     },
 
+    // note: 选择器选择格式
     // The regular expressions that power the parsing engine
     parse: [
 		// Match: [@value='test'], [@foo]
@@ -725,12 +749,12 @@ jQuery.extend({
         // and the modified expression string (t)
         return { r: r, t: t };
     },
-    
-	trim: function (t) {
+
+    trim: function (t) {
         return t.replace(/^\s+|\s+$/g, "");
     },
-    
-	parents: function (elem) {
+
+    parents: function (elem) {
         var matched = [];
         var cur = elem.parentNode;
         while (cur && cur != document) {
@@ -739,8 +763,8 @@ jQuery.extend({
         }
         return matched;
     },
-    
-	sibling: function (elem, pos, not) {
+
+    sibling: function (elem, pos, not) {
         var elems = [];
 
         var siblings = elem.parentNode.childNodes;
@@ -760,8 +784,8 @@ jQuery.extend({
             next: elems[elems.n + 1]
         });
     },
-    
-	merge: function (first, second) {
+
+    merge: function (first, second) {
         var result = [];
 
         // Move b over to the new array (this helps to avoid
@@ -786,8 +810,8 @@ jQuery.extend({
 
         return result;
     },
-    
-	grep: function (elems, fn, inv) {
+
+    grep: function (elems, fn, inv) {
         // If a string is passed in for the function, make a function
         // for it (a handy shortcut)
         if (fn.constructor == String)
@@ -803,8 +827,8 @@ jQuery.extend({
 
         return result;
     },
-    
-	map: function (elems, fn) {
+
+    map: function (elems, fn) {
         // If a string is passed in for the function, make a function
         // for it (a handy shortcut)
         if (fn.constructor == String)
@@ -949,7 +973,7 @@ jQuery.extend({
         }
 
     }
-	
+
 });
 
 // note: 5. 样式处理模块：添加相关的成员变量、方法
@@ -976,7 +1000,7 @@ jQuery.macros = {
         insertBefore: "before",
         insertAfter: "after"
     },
-    
+
     css: "width,height,top,left,position,float,overflow,color,background".split(","),
 
     filter: ["eq", "lt", "gt", "contains"],
@@ -1069,7 +1093,7 @@ jQuery.macros = {
     }
 };
 
-// note: 初始化 jQuery，此时所有成员变量已添加
+// note: 启动“样式处理模块”，而不是整个jQuery模块
 jQuery.init();
 
 // note: 拓展样式处理方法
@@ -1115,8 +1139,8 @@ jQuery.fn.extend({
         // Bind the function to the two event listeners
         return this.mouseover(handleHover).mouseout(handleHover);
     },
-    
-	ready: function (f) {
+
+    ready: function (f) {
         // If the DOM is already ready
         if (jQuery.isReady)
             // Execute the function immediately
@@ -1159,7 +1183,7 @@ jQuery.extend({
             }
         }
     }
-	
+
 });
 
 // note: 6. 事件及动态处理模块：添加相关的处理方法
@@ -1297,8 +1321,8 @@ jQuery.fn.extend({
     fadeTo: function (speed, to, callback) {
         return this.animate({ opacity: to }, speed, callback);
     },
-    
-	animate: function (prop, speed, callback) {
+
+    animate: function (prop, speed, callback) {
         return this.queue(function () {
 
             this.curAnim = prop;
@@ -1313,8 +1337,8 @@ jQuery.fn.extend({
 
         });
     },
-    
-	queue: function (type, fn) {
+
+    queue: function (type, fn) {
         if (!fn) {
             fn = type;
             type = "fx";
@@ -1664,8 +1688,8 @@ jQuery.extend({
     getScript: function (url, data, callback) {
         jQuery.get(url, data, callback, "script");
     },
-    
-	post: function (url, data, callback, type) {
+
+    post: function (url, data, callback, type) {
         // Build and start the HTTP Request
         jQuery.ajax("POST", url, jQuery.param(data), function (r, status) {
             if (callback) callback(jQuery.httpData(r, type), status);
