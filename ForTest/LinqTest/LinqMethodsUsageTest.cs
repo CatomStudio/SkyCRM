@@ -17,9 +17,19 @@ using System.Threading.Tasks;
 ///     
 namespace ForTest.LinqTest
 {
-    public class IQueryableTest
+    public class IEnumerableTest
     {
         // 初始化集合数据
+        public static IEnumerable<string> DataInit()
+        {
+            var str = new[] { "AA", "BB", "CC", "DD", "EE", "FF", "GG", "HH" };
+            return str.AsEnumerable();
+        }
+    }
+
+    public class IQueryableTest
+    {
+        // 初始化可查询集合数据
         public static IQueryable<string> DataInit()
         {
             var str = new[] { "AA", "BB", "CC", "DD", "EE", "FF", "GG", "HH" };
@@ -29,23 +39,60 @@ namespace ForTest.LinqTest
         // test for Where
     }
 
-    public class IEnumerableTest
+    public class MethodsContext
     {
-        public static IEnumerable<string> DataInit()
-        {
-            var str = new[] { "AA", "BB", "CC", "DD", "EE", "FF", "GG", "HH" };
-            return str.AsEnumerable();
-        }
+        // select 
+
+        // aggregate 
+
+        // all
+
+        // any 
+
+        // average
+
+        // cast
+
+        // concat 
+
+        // contains
+
+        // defaultIfEmpty
+
+        // Distinct
+
+        // elementAt
+
+        // Except
+
+        // Intersect
+
+        // join
+
+        // groupBy
+
+        // groupJoin
+
+        // single
+
+        // Max
+
+        // ofType
+
 
     }
 
     class Program
     {
-        public static void Main1()
+        public static void Main()
         {
-            var data = IEnumerableTest.DataInit();
-            
-
+            var data1 = IEnumerableTest.DataInit();
+            var data2 = IQueryableTest.DataInit();
+            var list = data1.Select(s => new String((s + ",,,,").ToCharArray()));
+            foreach (var i in list)
+            {
+                Console.WriteLine(i);
+            }
         }
 
     }

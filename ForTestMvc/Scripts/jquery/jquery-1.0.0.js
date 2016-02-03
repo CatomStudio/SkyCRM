@@ -20,7 +20,7 @@ window.undefined = window.undefined;
 function jQuery(a, c) {
 
     // Shortcut for document ready (because $(document).each() is silly)
-    // note: usage eg.. $(function(){}).ready();
+    // note: usage eg.. $(function(){ }).ready(); <==> $.ready(function(){ });
     if (a && a.constructor == Function && jQuery.fn.ready)
         return jQuery(document).ready(a);
 
@@ -31,7 +31,7 @@ function jQuery(a, c) {
     if (a.jquery)
         return $(jQuery.merge(a, []));
 
-    // Watch for when a jQuery object is passed at the contextl
+    // Watch for when a jQuery object is passed at the context
     if (c && c.jquery)
         return $(c).find(a);
 
@@ -68,7 +68,7 @@ if ($)
 var $ = jQuery;
 
 
-// note: 2. 原型容器初始方法集。非静态方法，某些实现需要依赖拓展的静态方法
+// note: 2. 重构jQuery.prototype，并初始化原型容器必须的方法集。（部分原型方法，需要依赖后面拓展的静态方法）
 jQuery.fn = jQuery.prototype = {
     jquery: "$Rev: 509 $",
 
@@ -290,9 +290,6 @@ jQuery.fn = jQuery.prototype = {
 
 // note: 3. 继承：容器拓展的实现机制
 jQuery.extend = jQuery.fn.extend = function (obj, prop) {
-    console.log('#jQuery.extend \n ' + obj + '\n' + prop); // note: log
-    console.log(obj); // note: log
-    console.log(prop); // note: log
     if (!prop) { prop = obj; obj = this; }
     for (var i in prop) obj[i] = prop[i];
     return obj;
@@ -494,6 +491,9 @@ jQuery.extend({
         return r;
     },
 
+	// note: 选择器参数格式，对应 jQuery(a) 中 a 的格式
+	// m[2]-,m[3]-,m[4]-
+	// ""_,"#"_id,":"_,"."_class,"@"_,"[]"_
     expr: {
         "": "m[2]== '*'||a.nodeName.toUpperCase()==m[2].toUpperCase()",
         "#": "a.getAttribute('id')&&a.getAttribute('id')==m[2]",
@@ -680,7 +680,7 @@ jQuery.extend({
     // The regular expressions that power the parsing engine
     parse: [
 		// Match: [@value='test'], [@foo]
-		["\\[ *(@)S *([!*$^=]*) *Q\\]", 1],
+		["\\[ *(@)S *([!*$^=]*) *Q\\]", 1], // note: 双目match-1，单目match-0
 
 		// Match: [div], [div p]
 		["(\\[)Q\\]", 0],
@@ -993,6 +993,7 @@ new function () {
     jQuery.boxModel = !jQuery.browser.msie || document.compatMode == "CSS1Compat";
 };
 
+// note: 样式处理所需变量
 jQuery.macros = {
     to: {
         appendTo: "append",

@@ -405,7 +405,7 @@ namespace ForTest.ExpressionTest
 
 
 
-        public static void Main()
+        public static void Main1()
         {
             // 测试
             var conn = DBUtil.GetConn();

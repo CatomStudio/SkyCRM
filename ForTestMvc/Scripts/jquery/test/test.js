@@ -44,11 +44,11 @@
 //    console('prototype');
 //}
 
+    var h = $(".aaa111");
+    console.log(h.text());
 
-var h = $(".aaa111");l
-console.log(h);
 
-
+    [ *(@)([a-z*_-][a-z0-9_-]*) *([!*$^=]*) * *'?\"?([^'\"]*?)'?\"? *]
 
 
 
