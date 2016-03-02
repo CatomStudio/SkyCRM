@@ -44,11 +44,16 @@
 //    console('prototype');
 //}
 
-    var h = $(".aaa111");
-    console.log(h.text());
 
-
-    [ *(@)([a-z*_-][a-z0-9_-]*) *([!*$^=]*) * *'?\"?([^'\"]*?)'?\"? *]
+var jQuery = function(){};
+jQuery.fn = jQuery.prototype;
+jQuery.fn.extend = jQuery.extend = function () {
+    var i = 0;
+    for (i = 0; i < arguments.length; i++) {
+        jQuery
+    }
+}
+jQuery.extend({ a: 1, b: 2 });
 
 
 

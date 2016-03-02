@@ -1,0 +1,18 @@
+﻿
+【相关文章】
+http://www.cnblogs.com/nuysoft/archive/2011/11/14/2248023.html
+
+
+【相关术语】
+1. 函数直接量
+	(function(a){})(window)
+	声明一个匿名函数，并将window作为参数传入执行该函数。
+	*注：(function(){})只是定义声明，并不会执行函数；当传入window这个对象时才会触发执行；
+		等同于：var fun = function(a){}; fun(window);
+2. 
+
+
+
+
+
+
