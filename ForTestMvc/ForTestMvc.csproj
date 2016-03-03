@@ -270,7 +270,7 @@
     <Content Include="Scripts\jquery\jquery-1.4.2.js" />
     <Content Include="Scripts\jquery\jquery-1.8.1.js" />
     <Content Include="Scripts\jquery\jquery-1.9.1.js" />
-    <Content Include="Scripts\jquery\comments-v1.6.0.txt" />
+    <Content Include="Scripts\jquery\comments-v1.6.1.txt" />
     <Content Include="Scripts\jquery\test\core.js" />
     <Content Include="Scripts\jquery\test\test.html" />
     <Content Include="Scripts\jquery\test\test.js" />
