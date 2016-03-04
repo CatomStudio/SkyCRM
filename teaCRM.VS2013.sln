@@ -28,6 +28,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForTestMvc", "ForTestMvc\Fo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "UnitTest\UnitTest.csproj", "{58595CC7-95CB-4B04-93A7-329DAC3D3DC1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebSocketDemo", "WebSocketDemo\WebSocketDemo.csproj", "{FA3D1254-3DC8-4700-9D50-AB0E9BF3B34B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -118,6 +120,16 @@ Global
 		{58595CC7-95CB-4B04-93A7-329DAC3D3DC1}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{58595CC7-95CB-4B04-93A7-329DAC3D3DC1}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{58595CC7-95CB-4B04-93A7-329DAC3D3DC1}.Release|x86.ActiveCfg = Release|Any CPU
+		{FA3D1254-3DC8-4700-9D50-AB0E9BF3B34B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA3D1254-3DC8-4700-9D50-AB0E9BF3B34B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA3D1254-3DC8-4700-9D50-AB0E9BF3B34B}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{FA3D1254-3DC8-4700-9D50-AB0E9BF3B34B}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{FA3D1254-3DC8-4700-9D50-AB0E9BF3B34B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FA3D1254-3DC8-4700-9D50-AB0E9BF3B34B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA3D1254-3DC8-4700-9D50-AB0E9BF3B34B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA3D1254-3DC8-4700-9D50-AB0E9BF3B34B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{FA3D1254-3DC8-4700-9D50-AB0E9BF3B34B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{FA3D1254-3DC8-4700-9D50-AB0E9BF3B34B}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
