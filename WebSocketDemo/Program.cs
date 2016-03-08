@@ -12,7 +12,7 @@ namespace WebSocketDemo
     {
         static void Main(string[] args)
         {
-
+            //var appServer = new AppServer();
         }
 
     }
